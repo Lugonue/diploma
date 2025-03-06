@@ -26,7 +26,11 @@ export default {
           'Light': '#589F8E',
           'Dark': '#2B8570',
           'Background': '#2B8570',
+        },
+        dark: {
+          'background': '#1F2A26',
         }
+
       },
       fontFamily: {
         sans: ['Graphik', 'sans-serif'],
