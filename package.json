@@ -2,13 +2,12 @@
   "name": "diploma",
   "type": "module",
   "version": "0.0.1",
-  "description": "Starter template for Vite with React (TypeScript). Supports Tailwind. Vitest and @react/testing-library configured and ready to go. Also ESLint, Prettier, Husky, Commit-lint and Atomic Design for components.",
+  "description": "Дипломная работа, хекселет",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lugonue/diploma.git"
   },
   "author": "PopkoKV",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Lugonue/diploma/issues"
   },
