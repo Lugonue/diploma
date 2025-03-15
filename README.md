@@ -17,3 +17,5 @@ yarn start
 Приложение будет доступно на http://localhost:3000/
 
 #### Деплой
+
+Адрес последней актуальной версии https://diploma.volnushka.me.eu.org/
