@@ -33,7 +33,7 @@ jobs:
         run: |
           cd ./backend
           yarn build
-          nohup yarn start:prod > backend.log 2>&1 &
+          nohup node dist/main &
         env:
           NODE_ENV: production
 
