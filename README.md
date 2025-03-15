@@ -1,29 +1,19 @@
+### Дипломный проект хекслет 
 
+Разработка сайта интернет магазина ортопедических товаров
 
-## Запуск
-1) Если нет менеджера пакетов yarn ставим
+#### Запуск для разработки
+- требование: предустановленный пакетный менеджер yarn
+- запускаем фронтенд
 ```
-npm i -g yarn
-```
-2) Подтягиваем зависимости
-```
-yarn
-```
-3) Запускаем дев версию (http://localhost:3000/)
-```
+cd ./frontend
 yarn dev
 ```
-4) Билд
-
+- запускаем бэкенд
 ```
-yarn build
+cd ./backend
+yarn start
 ```
-## Features
+Приложение будет доступно на http://localhost:3000/
 
-- ⚡️ [React 18](https://beta.reactjs.org/)
-- 🦾 TypeScript, of course
-- 🎨 [Tailwind](https://tailwindcss.com/) - next generation utility-first CSS
-- 👑 [Atomic Design organization](https://bradfrost.com/blog/post/atomic-web-design/)
-- 🗂 [Relative imports](https://github.com/vitejs/vite/issues/88#issuecomment-762415200)
-- 😃 [Hero icons](https://heroicons.com/)
-- ☁️ Deploy on Netlify, zero-config
+#### Деплой

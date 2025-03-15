@@ -1,0 +1,57 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main # Запускать только при пуше в ветку main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted # Используйте Self-Hosted Runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+        # Установка последней версии Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Укажите '20' для последней версии Node.js 20.x.x
+
+       # Шаг : Установка yarn
+      - name: Install yarn
+        run: npm install -g yarn
+
+      # Шаг: Сборка бэкенда
+      - name: Install dependencies
+        run: |
+          cd ./backend
+          yarn install
+      
+      - name: Build backend
+        run: |
+          cd ./backend
+          yarn build
+          yarn start:prod &
+        env:
+          NODE_ENV: production
+
+      # Шаг : Сборка фронтенда
+      - name: Install dependencies
+        run: |
+          cd ./frontend
+          yarn install
+      - name: Build frontend
+        run: |
+          cd ./frontend
+          yarn build
+          sudo cp -r ./dist/* /var/www/diploma/frontend
+        env:
+          NODE_ENV: production
+
+      # Шаг настройка nginx
+      # - name: Configure Nginx
+      #   run: |
+      #     chmod +x ./configure-nginx.sh
+      #     ./configure-nginx.sh
