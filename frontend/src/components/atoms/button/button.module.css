@@ -1,5 +1,5 @@
 .primary {
-    @apply bg-primary-Default text-white;
+    @apply bg-primary text-white;
 }
 
 .secondary {

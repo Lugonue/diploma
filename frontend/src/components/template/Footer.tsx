@@ -1,5 +1,4 @@
 
-type Props = {}
 const cols = [
     {
         text: 'OrthoCare © 2025 OrthoCare.\nОртопедические товары для всей семьи.\nУлучшайте своё здоровье вместе с нами!',
@@ -44,10 +43,10 @@ const cols = [
 
     },
 ]
-const Footer = (props: Props) => {
+const Footer = () => {
 
     return (
-        <footer className="pb-16 grid place-content-center w-full text-gray-400 bg-dark-background font-medium">
+        <footer className="pb-16 grid place-content-center w-full text-gray-400 bg-dark font-medium">
             <div className="grid grid-cols-3">
                 {cols.map((item, index) => (
                     <div className="flex items-start justify-center">

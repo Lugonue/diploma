@@ -1,5 +1,5 @@
 import { forwardRef, ComponentProps } from "react";
-import styles from "./button.module.css";
+import { getColor, getSizes } from "./buttonStyles";
 
 
 const Button = forwardRef<
@@ -12,14 +12,8 @@ const Button = forwardRef<
 >(({ children, color, size, ...rest }, ref) => {
 
   const getClasses = () => {
-    let classes = 'p-2 rounded hover:opacity-80 transition-all duration-200 ease-in-out'
+    const classes = ` cursor-pointer p-2 rounded hover:opacity-80 transition-all duration-200 ease-in-out ${getColor(color)} ${getSizes(size)}`
 
-    if (color) {
-      classes += ` ${styles[color]}`
-    }
-    if (size) {
-      classes += ` ${styles[size]}`
-    }
     return classes + " " + rest.additionalClasses
   }
 

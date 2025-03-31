@@ -1,6 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --default-ring-width: 3px;
+  --default-ring-color: var(--color-blue-500);
+  --default-background-color: var(--color-gray-100);
+  --default-background-secondary: var(--color-gray-100);
+
+  /* main colors */
+  --color-primary: hsla(166, 51%, 35%, 1);
+  --color-primary-100: hsla(166, 29%, 48%, 1);
+  --color-secondary: hsla(0, 0%, 85%, 1);
+  --color-dark: hsla(158, 15%, 14%, 1);
+}
+
 
 @layer base {
   html {
@@ -15,7 +27,7 @@
   }
 
   main {
-    @apply px-4 min-h-screen sm:px-0 space-y-16 w-full bg-secondary-background;
+    @apply px-4 min-h-screen sm:px-0 space-y-16 w-full bg-primary;
     /* background-color: ; */
     /* background-image: radial-gradient(
         hsla(0, 0%, 84.3%, 0.25) 1px,

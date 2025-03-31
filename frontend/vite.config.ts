@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import { resolve } from "path";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig(({ mode }) => {
   // Загружаем переменные окружения в зависимости от режима (development, production и т.д.)
@@ -10,7 +11,7 @@ export default defineConfig(({ mode }) => {
   const backendUrl = env.VITE_BACKEND_URL || "http://localhost:5000";
 
   return {
-    plugins: [react()],
+    plugins: [react(), tailwindcss()],
     server: {
       port: 3000,
       proxy: {
