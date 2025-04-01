@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserModule } from './modules/user/user.module';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -11,6 +13,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
+        schema: 'public',
         host: config.get('DB_HOST'),
         port: config.get('DB_PORT'),
         username: config.get('DB_USERNAME'),
@@ -21,8 +24,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         logging: true, // Логирование запросов (опционально)
         autoLoadEntities: true,
       }),
+      dataSourceFactory: async (options) => {
+        return new DataSource(options!).initialize();
+      },
       inject: [ConfigService],
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
