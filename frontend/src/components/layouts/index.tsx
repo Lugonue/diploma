@@ -7,7 +7,7 @@ type Props = {}
 const Layout = (props: Props) => {
     return (
         <>
-            <main className="min-h-screen flex flex-col">
+            <main className="min-h-screen flex flex-col bg-emerald-100">
                 <Header id="header" />
                 <div className="flex-1">
                     <Outlet />

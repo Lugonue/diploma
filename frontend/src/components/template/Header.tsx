@@ -1,16 +1,33 @@
 import { User } from '@/types/User'
-import Button from 'components/atoms/button'
+import { Button } from 'components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type Props = { id?: string, user?: User }
 
 const Header = (props: Props) => {
-  console.log(props)
+  const { i18n, t } = useTranslation('header');
+  const [lang, setLang] = useState(i18n.language?.split('-')[0] || 'ru');
   return (
     <header className="pt w-full">
       <div className='flex items-center justify-between bg-gradient-to-t from-gray-200 to-gray-300 py-5 px-10 rounded '>
         <span className='text-primary-100'> Название сайта</span>
-        <span className='text-black'> {props?.user?.data.name}</span>
-        <Button color='primary' additionalclasses='rounded' > Заказать звонок</Button>
+        <div className="flex gap-2">
+          <Button >{t('callbuttonLabel')} </Button>
+
+          <Select onValueChange={(value) => { setLang(value); i18n.changeLanguage(value) }} value={lang} >
+            <SelectTrigger className="">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ru">ru</SelectItem>
+              <SelectItem value="en">en</SelectItem>
+            </SelectContent>
+          </Select>
+
+
+        </div>
       </div>
     </header >
   )
