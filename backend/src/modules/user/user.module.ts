@@ -9,6 +9,6 @@ import { Phone } from './entities/phone.entity';
 @Module({
   controllers: [UserController],
   providers: [UserService],
-  imports: [TypeOrmModule.forFeature([User, Address, Phone])],
+  imports: [TypeOrmModule.forFeature([User])],
 })
 export class UserModule {}
