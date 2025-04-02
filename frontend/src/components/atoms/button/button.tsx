@@ -7,14 +7,14 @@ const Button = forwardRef<
   Omit<ComponentProps<"button">, 'className'> & {
     color?: 'primary' | 'secondary';
     size?: 'sm' | 'lg';
-    additionalClasses?: string
+    additionalclasses?: string
   }
 >(({ children, color, size, ...rest }, ref) => {
 
   const getClasses = () => {
     const classes = ` cursor-pointer p-2 rounded hover:opacity-80 transition-all duration-200 ease-in-out ${getColor(color)} ${getSizes(size)}`
 
-    return classes + " " + rest.additionalClasses
+    return classes + " " + rest.additionalclasses
   }
 
   return (

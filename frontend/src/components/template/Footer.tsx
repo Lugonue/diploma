@@ -49,8 +49,8 @@ const Footer = () => {
         <footer className="pb-16 grid place-content-center w-full text-gray-400 bg-dark font-medium">
             <div className="grid grid-cols-3">
                 {cols.map((item, index) => (
-                    <div className="flex items-start justify-center">
-                        <div key={index} className="p-10  text-wrap whitespace-pre-wrap">
+                    <div key={index} className="flex items-start justify-center">
+                        <div className="p-10  text-wrap whitespace-pre-wrap">
                             <p className={item.font}>{item.text}</p>
                             {item.list && (
                                 <ul className={item.listClass}>
