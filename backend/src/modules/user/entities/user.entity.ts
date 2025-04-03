@@ -19,7 +19,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({ name: 'date_of_birth' })
+  @Column({ type: 'date', name: 'date_of_birth' })
   dateOfBirth: Date;
 
   @Column()
