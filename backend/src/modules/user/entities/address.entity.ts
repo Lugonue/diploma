@@ -25,6 +25,6 @@ export class Address {
   @Column({ nullable: true })
   floor?: string;
 
-  @ManyToOne(() => User, (user) => user.addresses)  
+  @ManyToOne(() => User, (user) => user.addresses, { onDelete: 'CASCADE' })  
   user: User;
 }  
