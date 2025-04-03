@@ -1,27 +1,31 @@
-import Footer from "components/template/Footer";
-import Header from "components/template/Header";
+import Layout from "components/layouts";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import useUserStore from "hooks/useStore";
 import LoginPage from "./pages/LoginPage";
+import { useTranslation } from "react-i18next";
+import LoginLayout from "components/layouts/LoginLayout";
+import HomePage from "./pages/HomePage";
+import RegisterPage from "./pages/RegistrePage";
 
 type Props = {}
 
 const App = (props: Props) => {
-    const user = useUserStore((state) => state.user);
+    const { t, ready } = useTranslation();
+
+    if (!ready) return <div>Loading...</div>;
     return (
         <Router>
-            <main className="min-h-screen flex flex-col">
-                <Header id="header" user={user} />
-                <Routes>
-                    <Route path="/" element={<HomePage />} >
-                        <Route path="/login" element={<LoginPage />} />
-                        {/* <Route path="/contact" element={<ContactPage />} /> */}
-                        {/* <Route path="*" element={<NotFoundPage />} /> */}
+            <Routes>
+                <Route path="/" element={<Layout />} >
+                    <Route path="" element={<HomePage />} />
+                    <Route path="/auth" element={<LoginLayout />}>
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="register" element={<RegisterPage />} />
+
                     </Route>
-                </Routes>
-                <Footer />
-            </main>
+
+                </Route>
+
+            </Routes>
         </Router>
     )
 }

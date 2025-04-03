@@ -1,0 +1,21 @@
+{
+  "login": {
+    "cardTitle": "Login",
+    "cardSubtitle": "Log in to your account",
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email",
+      "error": {
+        "min": "Email must be more than 6 characters",
+        "email": "Invalid email format"
+      }
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password",
+      "error": {
+        "min": "Password must be more than 6 characters"
+      }
+    }
+  }
+}
