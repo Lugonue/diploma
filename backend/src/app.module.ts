@@ -8,7 +8,7 @@ import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: ['.env.dev.local'] }),
+    ConfigModule.forRoot({ envFilePath: '../.env.dev.local', }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
