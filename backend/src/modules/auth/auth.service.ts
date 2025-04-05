@@ -4,6 +4,7 @@ import { CreateUserDto } from '../user/dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
 import { DataSource } from 'typeorm';
 import { User } from '../user/entities/user.entity';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +27,7 @@ export class AuthService {
     return { message: 'User registered successfully' };
   }
 
-  async login(loginUserDto: { email: string; password: string }) {
+  async login(loginUserDto: LoginUserDto) {
     const user = await this.dataSource.getRepository(User).findOne({ where: { email: loginUserDto.email } });
 
     if (!user || !(await bcrypt.compare(loginUserDto.password, user.password))) {
