@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Category } from "./category.entity";
 import { ProductType } from './type.entity';
 
@@ -16,10 +16,12 @@ export class Product {
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
-  @ManyToOne(() => Category, (category) => category.products, { cascade: true })
+  @ManyToOne(() => Category, (category) => category.products)
+  @JoinColumn({ name: 'category_id' })
   category: Category;
 
-  @ManyToOne(() => ProductType, (type) => type.products, { cascade: true })
+  @ManyToOne(() => ProductType, (type) => type.products)
+  @JoinColumn({ name: 'type_id' })
   type: ProductType;
 
   @Column({ nullable: true })
@@ -31,6 +33,6 @@ export class Product {
   @Column({ nullable: true })
   image_url: string;
 
-  @Column({ nullable: true })
+  @Column({ default: 0})
   number_of_purchases: number;
 }

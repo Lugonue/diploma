@@ -1,37 +1,35 @@
-import { IsString, IsOptional, IsNumber, IsPositive, IsObject } from 'class-validator';
-import { CategoryDto } from './create-category.dto';
-import { TypeDto } from './create-type.dto';
+import { IsString, IsOptional, IsNumber, IsPositive, IsNotEmpty } from 'class-validator';
 
 export class CreateProductDto {
-    @IsString()
-    name: string;
+  @IsString()
+  name: string;
 
-    @IsString()
-    brand: string;
+  @IsString()
+  brand: string;
 
-    @IsNumber()
-    @IsPositive()
-    price: number;
+  @IsNumber()
+  @IsPositive()
+  price: number;
 
-    @IsObject()
-    category: CategoryDto;
+  @IsNotEmpty()
+  category: number;
 
-    @IsObject()
-    type: TypeDto;
+  @IsNotEmpty()
+  type: number;
 
-    @IsString()
-    color: string;
+  @IsString()
+  color: string;
 
-    @IsOptional()
-    @IsString()
-    description?: string;
+  @IsOptional()
+  @IsString()
+  description?: string;
 
-    @IsOptional()
-    @IsString()
-    image_url?: string;
+  @IsOptional()
+  @IsString()
+  image_url?: string;
 
-    @IsOptional()
-    @IsNumber()
-    @IsPositive()
-    number_of_purchases: number;
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  number_of_purchases: number = 0;
 }
