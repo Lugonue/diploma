@@ -41,6 +41,7 @@ const RegistrationForm = (props: Props) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            dateOfBirth: new Date('2000-01-01'),
         },
     })
     function onSubmit(values: z.infer<typeof formSchema>) {
