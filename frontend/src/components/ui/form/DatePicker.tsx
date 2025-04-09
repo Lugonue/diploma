@@ -17,9 +17,11 @@ type Props = {
     onPickDate: (date: Date) => void;
     placeholder?: string
     CalendarProps?: React.ComponentProps<typeof DayPicker>
-}
 
-export function DatePicker({ onPickDate, placeholder, CalendarProps }: Props) {
+} & any
+
+export function DatePicker({ onPickDate, placeholder, CalendarProps, ...props }: Props) {
+    console.log(props)
     const [date, setDate] = React.useState<Date>()
     const [inputDate, setInputDate] = React.useState<string>()
     const onSelect = (date?: Date | string) => {
@@ -57,8 +59,6 @@ export function DatePicker({ onPickDate, placeholder, CalendarProps }: Props) {
     }
     return (
         <Popover>
-            <span>{new Date(date || '').toLocaleDateString()}</span>
-            <span>{new Date(inputDate || '').toLocaleDateString()}</span>
             <div className="relative">
                 <Input
                     type="text"
@@ -66,6 +66,7 @@ export function DatePicker({ onPickDate, placeholder, CalendarProps }: Props) {
                     onBlur={handleInputBlur}
                     placeholder={placeholder}
                     onChange={(event) => setInputDate(event.target.value)}
+                    aria-invalid={props['aria-invalid']}
                 >
                 </Input>
                 <div className="flex top-0 absolute right-0">
@@ -84,6 +85,7 @@ export function DatePicker({ onPickDate, placeholder, CalendarProps }: Props) {
                     selected={date}
                     onSelect={onSelect}
                     defaultMonth={date}
+                    {...CalendarProps}
                 />
             </PopoverContent>
         </Popover >

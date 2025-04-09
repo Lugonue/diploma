@@ -1,3 +1,6 @@
 {
-  "callbuttonLabel": "Заказать звонок"
+  "callbuttonLabel": "Заказать звонок",
+  "button": {
+    "login": "Войти в личный кабинет" 
+  }
 }

@@ -1,9 +1,12 @@
-import auth, { LoginBody } from "@/api/endpoints/auth";
+import auth, { LoginBody, RergisterBody } from "@/api/endpoints/auth";
 import { useState } from "react";
 import useUserStore from "./useStore";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 export default () => {
   const { user } = useUserStore();
+  const navigate = useNavigate();
   const [authStatus, setAuthStatus] = useState({
     error: "",
   });
@@ -18,9 +21,16 @@ export default () => {
       user.hasAuth = true;
     }
   };
-
+  const makeRegister = async (body: Partial<RergisterBody>) => {
+    const { status, data } = await auth.register(body);
+    if (status === 201) {
+      toast.success("Регистрация прошла успешно");
+      navigate("/auth/login");
+    }
+  };
   return {
     makeAuth,
+    makeRegister,
     authStatus,
   };
 };

@@ -14,15 +14,18 @@ import { z } from "zod"
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { DatePicker } from 'components/ui/form/DatePicker';
+import useAuth from 'hooks/useAuth';
 
 type Props = {}
 
 const RegistrationForm = (props: Props) => {
+    const { makeRegister } = useAuth();
+
     const { t } = useTranslation('form');
     const formSchema = z.object({
         lastName: z.string().min(1),
         firstName: z.string().min(1),
-        dateOfBirth: z.date(),
+        dateOfBirth: z.string(),
         email: z.string().min(2, {
             message: t('registration.email.error.min'),
         }).email({
@@ -41,13 +44,14 @@ const RegistrationForm = (props: Props) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            dateOfBirth: new Date('2000-01-01'),
         },
     })
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
+    function onSubmit({ confirmPassword, ...values }: z.infer<typeof formSchema>) {
         console.log(values)
+        makeRegister({
+            ...values,
+            role: 'user'
+        });
     }
     return (
         <Form  {...form}>
@@ -86,9 +90,9 @@ const RegistrationForm = (props: Props) => {
                             <FormLabel>{t('register.dateOfBirth.label')}</FormLabel>
                             <FormControl>
                                 <DatePicker CalendarProps={{
-                                    disabled: (date) =>
+                                    disabled: (date: Date) =>
                                         date > new Date() || date < new Date("1900-01-01")
-                                }} onPickDate={field.onChange} placeholder={t('register.dateOfBirth.placeholder')} {...field} />
+                                }} onPickDate={(date: Date) => { field.onChange(new Date(date).toISOString()) }} placeholder={t('register.dateOfBirth.placeholder')} {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

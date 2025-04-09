@@ -12,10 +12,9 @@ const Layout = (props: Props) => {
                 <Header id="header" />
                 <div className="flex-1">
                     <Outlet />
-
                 </div>
                 <Footer />
-                <Toaster position="top-right"/>
+                <Toaster position="top-right" />
             </main>
         </>
     )

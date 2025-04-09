@@ -2,7 +2,7 @@ import apiClient from "../apiClient";
 
 export default {
   login: (body: LoginBody) => apiClient.post("/auth/login", body),
-  register: (body: RergisterBody) => apiClient.post("/auth/register", body),
+  register: (body: Partial<RergisterBody>) => apiClient.post("/auth/register", body),
 };
 
 export type LoginBody = { email: string; password: string };
