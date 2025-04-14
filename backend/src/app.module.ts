@@ -10,7 +10,7 @@ import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: '../.env.dev.local', isGlobal: true }),
+    ConfigModule.forRoot({isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
