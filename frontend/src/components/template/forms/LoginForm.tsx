@@ -21,6 +21,7 @@ type Props = {}
 const LoginForm = (props: Props) => {
     const { t } = useTranslation('form');
     const { makeAuth, authStatus } = useAuth();
+
     const formSchema = z.object({
         email: z.string().min(2, {
             message: t('login.email.error.min'),
@@ -73,7 +74,7 @@ const LoginForm = (props: Props) => {
                     )}
                 />
                 {authStatus.error && <ErrorMessage msg={authStatus.error} />}
-                <Button className='w-full' type="submit">Submit</Button>
+                <Button className='w-full' type="submit">{t('global.button.login')}</Button>
             </form>
         </Form>
     )

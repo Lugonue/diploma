@@ -5,22 +5,27 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 export default () => {
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
   const navigate = useNavigate();
   const [authStatus, setAuthStatus] = useState({
     error: "",
   });
+
   const makeAuth = async (params: LoginBody) => {
     const { status, data } = await auth.login(params);
     if (status === 401) {
       setAuthStatus({
         error: "Неверный логин или пароль",
       });
-    } else if (status === 200) {
-      localStorage.setItem("authToken", data.token);
+    } else if (status === 201) {
+      localStorage.setItem("authToken", data.accessToken);
+      toast.success("Авторизация прошла успешно");
       user.hasAuth = true;
+      setUser();
+      navigate("/");
     }
   };
+
   const makeRegister = async (body: Partial<RergisterBody>) => {
     const { status, data } = await auth.register(body);
     if (status === 201) {

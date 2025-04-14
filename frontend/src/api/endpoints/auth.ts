@@ -1,8 +1,12 @@
+import { get } from "http";
 import apiClient from "../apiClient";
+import { User } from "@/types/User";
 
 export default {
   login: (body: LoginBody) => apiClient.post("/auth/login", body),
-  register: (body: Partial<RergisterBody>) => apiClient.post("/auth/register", body),
+  register: (body: Partial<RergisterBody>) =>
+    apiClient.post("/auth/register", body),
+  getMe: () => apiClient.get<User["data"]>("/auth/me"),
 };
 
 export type LoginBody = { email: string; password: string };
