@@ -1,6 +1,5 @@
-import { get } from "http";
-import apiClient from "../apiClient";
 import { User } from "@/types/User";
+import apiClient from "../apiClient";
 
 export default {
   login: (body: LoginBody) => apiClient.post("auth/login", body),
