@@ -18,7 +18,7 @@ const CurrentLoginUser = () => {
 
   return (
     <div className="flex gap-2 items-center">
-      <span>{user.data.firstName} {user.data.lastName.slice(0, 1)}.</span>
+      <span>{user.data.firstName} {user.data.lastName?.slice(0, 1)}.</span>
       <Button variant={'outline'} onClick={() => logout()}>Выйти</Button>
     </div>
   )
