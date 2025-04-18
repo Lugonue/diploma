@@ -1,15 +1,25 @@
-import { User } from '@/types/User'
-import { create } from 'zustand'
+import auth from "@/api/endpoints/auth";
+import { User } from "@/types/User";
+import { create } from "zustand";
 
-const useUserStore = create<{ user: User }>((set) => ({
-    user: {
-        data: {
-            name: 'name',
-            email: 'email',
-        },
-        hasAuth: false
-    },
-    setUser: (userData: User['data']) => set((state) => ({ user: { ...state.user, ...{ data: userData } } })),
-}))
+type Store = {
+  user: User;
+  setUser: () => void;
+  logout: () => void;
+};
 
-export default useUserStore
+const useUserStore = create<Store>((set) => ({
+  user: {
+    data: null as User["data"] | null,
+    hasAuth: localStorage.getItem("authToken") ? true : false,
+  },
+  setUser: async () => {
+    const { data } = await auth.getMe();
+    set((state) => ({ user: { ...state.user, ...{ data } } }));
+  },
+  logout: async () => {
+    localStorage.removeItem("authToken");
+    set((state) => ({ user: { ...state.user, ...{ hasAuth: false } } }));
+  },
+}));
+export default useUserStore;

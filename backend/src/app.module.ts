@@ -11,7 +11,7 @@ import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: '../.env.dev.local', isGlobal: true }),
+    ConfigModule.forRoot({isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({
