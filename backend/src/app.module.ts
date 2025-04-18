@@ -7,6 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { ProductModule } from './modules/product/product.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { ProductModule } from './modules/product/product.module';
     }),
     UserModule,
     AuthModule,
-    ProductModule
+    ProductModule,
+    OrderModule
   ],
   controllers: [AppController],
   providers: [AppService],

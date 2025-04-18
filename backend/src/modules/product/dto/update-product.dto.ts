@@ -17,7 +17,7 @@ export class UpdateProductDto {
   category_id?: number;
 
   @IsOptional()
-  type_id: number;
+  type_id?: number;
 
   @IsOptional()
   @IsString()

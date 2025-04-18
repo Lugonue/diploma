@@ -12,10 +12,10 @@ export class CreateProductDto {
   price: number;
 
   @IsNotEmpty()
-  category: number;
+  category_id: number;
 
   @IsNotEmpty()
-  type: number;
+  type_id: number;
 
   @IsString()
   color: string;

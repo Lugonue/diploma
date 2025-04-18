@@ -11,8 +11,8 @@ export class ProductService {
   constructor(private dataSource: DataSource) {}
 
   async create(createProductDto: CreateProductDto) {
-    const category = await this.dataSource.getRepository(Category).findOne({ where: { id: createProductDto.category } });
-    const productType = await this.dataSource.getRepository(ProductType).findOne({ where: { id: createProductDto.type } });
+    const category = await this.dataSource.getRepository(Category).findOne({ where: { id: createProductDto.category_id } });
+    const productType = await this.dataSource.getRepository(ProductType).findOne({ where: { id: createProductDto.type_id } });
 
     if (!category || !productType) {
       throw new NotFoundException('Category or ProductType not found');
