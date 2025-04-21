@@ -13,11 +13,15 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import useAuth from 'hooks/useAuth';
+import ErrorMessage from '../blocks/ErrorMessage';
 
 type Props = {}
 
 const LoginForm = (props: Props) => {
     const { t } = useTranslation('form');
+    const { makeAuth, authStatus } = useAuth();
+
     const formSchema = z.object({
         email: z.string().min(2, {
             message: t('login.email.error.min'),
@@ -37,10 +41,8 @@ const LoginForm = (props: Props) => {
             password: "",
         },
     })
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        await makeAuth(values);
     }
     return (
         <Form  {...form}>
@@ -71,7 +73,8 @@ const LoginForm = (props: Props) => {
                         </FormItem>
                     )}
                 />
-                <Button className='w-full' type="submit">Submit</Button>
+                {authStatus.error && <ErrorMessage msg={authStatus.error} />}
+                <Button className='w-full' type="submit">{t('global.button.login')}</Button>
             </form>
         </Form>
     )

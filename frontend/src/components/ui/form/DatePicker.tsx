@@ -1,5 +1,5 @@
 import * as React from "react"
-import { format } from "date-fns"
+import { format, formatDate, isMatch, isValid, parse, parseISO } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -17,39 +17,77 @@ type Props = {
     onPickDate: (date: Date) => void;
     placeholder?: string
     CalendarProps?: React.ComponentProps<typeof DayPicker>
-}
 
-export function DatePicker({ onPickDate, placeholder, CalendarProps }: Props) {
+} & any
+
+export function DatePicker({ onPickDate, placeholder, CalendarProps, ...props }: Props) {
+    console.log(props)
     const [date, setDate] = React.useState<Date>()
-    const onSelect = (date?: Date) => {
+    const [inputDate, setInputDate] = React.useState<string>()
+    const onSelect = (date?: Date | string) => {
         if (!date) return
-        setDate(date)
-        onPickDate(date)
+        const dateOut = new Date(date)
+        setDate(dateOut)
+        setInputDate(format(dateOut, "dd.MM.yyyy"))
+        onPickDate(dateOut)
+    }
+
+    const handleInputBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+        const value = event.target.value.trim();
+
+        if (value) {
+            try {
+                if (isMatch(value, "dd.MM.yyyy")) {
+                    const parsedDate = parse(value, "dd.MM.yyyy", new Date());
+                    if (isValid(parsedDate)) {
+                        // Проверяем, что дата соответствует введенной строке
+                        const formatted = format(parsedDate, "dd.MM.yyyy");
+                        if (formatted === value) {
+                            onSelect(parsedDate);
+                            return;
+                        }
+                    }
+                }
+            } catch {
+                // Ошибка парсинга
+            }
+
+            setInputDate(date ? format(date, "dd.MM.yyyy") : "");
+        } else {
+            setInputDate("");
+        }
     }
     return (
         <Popover>
-            <PopoverTrigger>
-                <Button
-                    type="button"
-                    variant={"outline"}
-                    className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                    )}
+            <div className="relative">
+                <Input
+                    type="text"
+                    value={inputDate ? inputDate : ''}
+                    onBlur={handleInputBlur}
+                    placeholder={placeholder}
+                    onChange={(event) => setInputDate(event.target.value)}
+                    aria-invalid={props['aria-invalid']}
                 >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "dd.MM.yyyy") : <span>{placeholder}</span>}
-                </Button>
+                </Input>
+                <div className="flex top-0 absolute right-0">
 
-            </PopoverTrigger>
+                    <PopoverTrigger >
+                        <Button className=" px-3 " type="button" variant={"ghost"} >
+                            <CalendarIcon className=" h-4 w-4 cursor-pointer" />
+                        </Button>
+                    </PopoverTrigger>
+                </div>
+            </div>
 
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     mode="single"
                     selected={date}
                     onSelect={onSelect}
+                    defaultMonth={date}
+                    {...CalendarProps}
                 />
             </PopoverContent>
-        </Popover>
+        </Popover >
     )
 }
