@@ -1,7 +1,8 @@
 {
-  "name": "Online store of orthopedic products",
-  "version": "0.1.0",
+  "name": "diploma",
+  "version": "1.0.0",
   "description": "Дипломный проект Хекслет колледж",
+  "main": "index.js",
   "scripts": {
     "postinstall": "cd ./frontend && yarn && cd ../backend && yarn"
   },
@@ -9,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Lugonue/diploma.git"
   },
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Lugonue/diploma/issues"

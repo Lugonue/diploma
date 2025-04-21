@@ -21,8 +21,10 @@ const LoginPage = (props: Props) => {
         <CardFooter>
           <div className="flex w-full items-center justify-between mt-10">
             <p className='text-sm'>{t('login.card.footer')}</p>
-            <Link to="/auth/register"><Button variant="outline">{t('login.card.registerButton')}</Button></Link>
+            <Link to="/auth/register"><Button variant="outline">Зарегистрироваться</Button></Link>
+
           </div>
+
         </CardFooter>
       </Card>
     </>

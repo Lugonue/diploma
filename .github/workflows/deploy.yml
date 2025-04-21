@@ -32,7 +32,6 @@ jobs:
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env.production
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env.production
           echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env.production
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env.production
 
 
       # Шаг: Сборка бэкенда

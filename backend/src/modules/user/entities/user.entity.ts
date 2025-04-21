@@ -14,8 +14,8 @@ export class User {
   @Column({ name: 'first_name' })
   firstName: string;
 
-  @Column({ name: 'middle_name', nullable: true })
-  middleName?: string;
+  @Column({ name: 'middle_name' })
+  middleName: string;
 
   @Column({ unique: true })
   email: string;
@@ -29,8 +29,8 @@ export class User {
   @Column({ name: 'avatar_url', nullable: true })
   avatarUrl?: string;
 
-  @Column({ nullable: true })
-  role?: string;
+  @Column()
+  role: string;
 
   @OneToMany(() => Address, (address) => address.user, { cascade: true })
   addresses: Address[];

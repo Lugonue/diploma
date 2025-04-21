@@ -46,7 +46,7 @@ const cols = [
 const Footer = () => {
 
     return (
-        <footer className="pb-16 grid place-content-center w-full text-gray-400 bg-dark font-medium mb-0">
+        <footer className="pb-16 grid place-content-center w-full text-gray-400 bg-dark font-medium">
             <div className="grid grid-cols-3">
                 {cols.map((item, index) => (
                     <div key={index} className="flex items-start justify-center">

@@ -20,6 +20,7 @@ function HomePage() {
   // })
   return (
     <div className="grid flex-1 place-content-center">
+      <Link to="/auth/login"> <Button> to login page</Button></Link>
     </div>
   );
 }
