@@ -40,7 +40,7 @@ jobs:
 
       # Шаг: Сборка бэкенда
       - name: Build & run backend
-        run: cd ./backend && docker compose up -d --build
+        run: cd ./backend && docker-compose down && docker-compose up --build -d
         env:
           NODE_ENV: production
 
