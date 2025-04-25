@@ -23,7 +23,7 @@ export class UserService {
   }
 
   async findOne(id: number) {
-    return await this.dataSource.getRepository(User).findOne({ where: { id }, relations: [ 'addresses', 'phones' ] });
+    return await this.dataSource.getRepository(User).findOne({ where: { id }, relations: ['addresses', 'phones', 'orders'] });
   }
 
   async update(id: number, updateUserDto: Partial<CreateUserDto>) {
