@@ -1,20 +1,19 @@
 services:
   backend:
-    build:
-      dockerfile: Dockerfile
+    build: .
     ports:
-      - "5000:5000"
-    environment:
-      NODE_ENV: production
+      - '5000:5000'
+    # environment:
+    #   NODE_ENV: production
     env_file:
       - .env
     depends_on:
-      - postgres
+      - db
     networks:
       - app-network
     restart: unless-stopped
 
-  postgres:
+  db:
     image: postgres:latest
     container_name: ${DB_HOST}
     env_file:
@@ -26,6 +25,19 @@ services:
     networks:
       - app-network
     restart: unless-stopped
+
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run migration:run
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    networks:
+      - app-network
 
 volumes:
   pg_data:
