@@ -1,16 +1,13 @@
-version: "3.8"
-
 services:
   backend:
     build:
-      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
       NODE_ENV: production
     env_file:
-      - ./backend/.env
+      - .env
     depends_on:
       - postgres
     networks:
@@ -19,12 +16,13 @@ services:
 
   postgres:
     image: postgres:latest
+    container_name: ${DB_HOST}
     env_file:
-      - ./backend/.env
+      - .env
     volumes:
       - pg_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - ${DB_PORT}:${DB_PORT}
     networks:
       - app-network
     restart: unless-stopped
