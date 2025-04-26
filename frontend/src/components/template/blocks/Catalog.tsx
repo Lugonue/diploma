@@ -1,4 +1,4 @@
-import Button from 'components/atoms/button'
+import { Button } from "components/ui/button"
 
 type Props = {}
 
@@ -8,7 +8,7 @@ const Catalog = (props: Props) => {
             <div className="flex">
                 <h4>Ортопедические товарыдля комфортной жизни</h4>
                 <span>Стельки, бандажи, корректоры осанки, ортопедические подушки – всё, что нужно для здоровья и удобства. Доставка по всей России.</span>
-                <Button color='primary' additionalClasses='rounded' > Смотреть каталог</Button>
+                <Button> Смотреть каталог</Button>
             </div>
 
         </div>

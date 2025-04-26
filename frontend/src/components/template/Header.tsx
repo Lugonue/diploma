@@ -38,7 +38,11 @@ const Header = (props: Props) => {
   return (
     <header className="pt w-full">
       <div className='flex items-center justify-between bg-gradient-to-t from-gray-200 to-gray-300 py-5 px-10 rounded '>
-        <span className='text-primary-100 cursor-pointer' onClick={() => navigate('/')}> Название сайта</span>
+        <div className="flex items-center ">
+          <img width={30} src="/img/logo.png" alt="" />
+          <span className='text-primary-100 cursor-pointer font-bold' onClick={() => navigate('/')}> {t('title')}</span>
+
+        </div>
         <div className="flex gap-2">
           <Button >{t('callbuttonLabel')} </Button>
           {!user.hasAuth ? <Button onClick={() => navigate('/auth/login')} variant={'outline'} >{t('button.login')} </Button> : <CurrentLoginUser />}

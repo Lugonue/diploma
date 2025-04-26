@@ -8,7 +8,7 @@ const RegisterPage = (props: Props) => {
   const { t } = useTranslation();
   return (
     <>
-      <Card >
+      <Card className='my-5' >
         <CardHeader  >
           <CardTitle>{t('register.card.title')}</CardTitle>
           <CardDescription>{t('register.card.subtitle')}</CardDescription>

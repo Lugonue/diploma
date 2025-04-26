@@ -6,7 +6,7 @@ type Props = {}
 
 const LoginLayout = (props: Props) => {
   return (
-    <div className='grid place-content-center flex-1 bg-emerald-100'>
+    <div className='grid place-content-center my-auto bg-emerald-100'>
       <Outlet />
     </div>
   )
