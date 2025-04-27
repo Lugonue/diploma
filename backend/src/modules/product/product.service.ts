@@ -11,7 +11,7 @@ import { FilterDto } from './dto/filter.dto';
 export class ProductService {
   constructor(private dataSource: DataSource) {}
 
-  async create(createProductDto: CreateProductDto) {
+  async createProduct(createProductDto: CreateProductDto) {
     const category = await this.dataSource.getRepository(Category).findOne({ where: { id: createProductDto.category_id } });
     const productType = await this.dataSource.getRepository(ProductType).findOne({ where: { id: createProductDto.type_id } });
 
@@ -28,12 +28,12 @@ export class ProductService {
     return this.dataSource.getRepository(Product).save(product);
   }
 
-  async findAll() {
+  async findAllProducts() {
     return await this.dataSource.getRepository(Product).find({ relations: ['category', 'type'] }
     );
   }
 
-  async findOne(id: number) {
+  async findOneProduct(id: number) {
     const product = await this.dataSource.getRepository(Product).findOne({ where: { id }, relations: ['category', 'type'] });
     if (!product) {
       throw new NotFoundException(`Product with ID ${id} not found.`);
@@ -41,13 +41,13 @@ export class ProductService {
     return product;
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto) {
+  async updateProduct(id: number, updateProductDto: UpdateProductDto) {
     await this.dataSource.getRepository(Product).update(id, updateProductDto);
-    return this.findOne(id);
+    return this.findOneProduct(id);
   }
 
-  async remove(id: number) {
-    const product = await this.findOne(id);
+  async removeProduct(id: number) {
+    const product = await this.findOneProduct(id);
     if (!product) {
       throw new NotFoundException(`Product with id ${id} not found`);
     }
@@ -80,5 +80,13 @@ export class ProductService {
     
     const products = await query.getMany();
     return products;
+  }
+
+  async findAllCategories() {
+    return await this.dataSource.getRepository(Category).find();
+  }
+
+  async findOneCategory(id: number) {
+    return await this.dataSource.getRepository(Category).findOne({ where: { id }, relations: ['products'] });
   }
 }
