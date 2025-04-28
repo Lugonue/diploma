@@ -7,6 +7,7 @@ import { FilterDto } from './dto/filter.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { CreateCategoryDto } from './dto/create-category.dto';
 
 @Controller('products')
 @UseGuards(JwtAuthGuard, RoleGuard)
@@ -38,10 +39,22 @@ export class ProductController {
     return this.productService.findAllCategories();
   }
 
+  @Post('categories')
+  @Roles('admin')
+  createCategory(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.productService.createCategory(createCategoryDto);
+  }
+
   @Get('categories/:id')
   @Roles('user', 'admin')
   findOneCategory(@Param('id') id: string) {
     return this.productService.findOneCategory(+id);
+  }
+
+  @Delete('categories/:id')
+  @Roles('admin')
+  removeCategory(@Param('id') id: string) {
+    return this.productService.removeCategory(+id);
   }
 
   @Get(':id')
