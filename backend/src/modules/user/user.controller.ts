@@ -47,8 +47,7 @@ export class UserController {
   @Roles('user', 'admin')
   async updateProfile(@Req() req: { user: User }, @Body() updateUserDto: UpdateUserDto) {
     const user = req.user;
-    await this.userService.update(user.id, updateUserDto);
-    return this.userService.getPublicUser(user.id);
+    return await this.userService.update(user.id, updateUserDto);
   }
 
   @Get(':id')
