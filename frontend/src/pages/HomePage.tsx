@@ -1,4 +1,4 @@
-import useBCStore from "@/stores/useBCstore";
+import useBCStore from "hooks/stores/useBCstore";
 import AboutUsBlock from "components/template/blocks/AboutUsBlock";
 import CatalogPreview from "components/template/blocks/CatalogPreview";
 import HelloBlock from "components/template/blocks/HelloBlock";

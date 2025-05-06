@@ -1,4 +1,4 @@
-import useBCStore from '@/stores/useBCstore'
+import useBCStore from 'hooks/stores/useBCstore'
 import UserInfo from 'components/template/blocks/User/UserInfo'
 import UserOrders from 'components/template/blocks/User/UserOrders'
 import { Separator } from 'components/ui/separator'

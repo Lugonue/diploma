@@ -1,5 +1,5 @@
 import React from 'react'
-import CatalogElement from './Product/CatalogElement'
+import CatalogElement from './Catalog/CatalogElement'
 import { Button } from 'components/ui/button'
 
 type Props = {}
