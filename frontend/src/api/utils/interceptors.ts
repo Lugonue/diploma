@@ -1,7 +1,12 @@
-import { InternalAxiosRequestConfig } from "axios";
+import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
-export const responseInterceptor = ({ response }: any) => {
+export const responseInterceptor = (response: AxiosResponse) => {
+  const navigate = useNavigate();
+  if (response.status === 500) {
+    navigate("/500");
+  }
   toast.error(response.data?.message || "Ошибка сервера");
 
   return response;

@@ -47,7 +47,6 @@ const RegistrationForm = (props: Props) => {
         },
     })
     function onSubmit({ confirmPassword, ...values }: z.infer<typeof formSchema>) {
-        console.log(values)
         makeRegister({
             ...values,
             role: 'user'

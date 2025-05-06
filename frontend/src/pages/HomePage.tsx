@@ -16,7 +16,7 @@ function HomePage() {
     setBC([{ link: '/', name: 'Главная' }])
   })
   return (
-    <div id="home" className="grid flex-1 lg:w-[1000px] gap-5">
+    <div id="home" className="grid flex-1 contentContainer gap-5">
       <div className="flex justify-between gap-5">
         <HelloBlock />
         <ActionSlider />

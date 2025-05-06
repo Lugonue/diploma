@@ -10,15 +10,15 @@ type Props = { id?: string, user?: User }
 
 
 const CurrentLoginUser = () => {
-
+  const navigate = useNavigate()
   const { user, logout } = useUserStore();
   if (!user.data) {
     return null
   }
 
   return (
-    <div className="flex gap-2 items-center">
-      <span>{user.data.firstName} {user.data.lastName?.slice(0, 1)}.</span>
+    <div className="flex gap-2 items-center mx-4">
+      <Button variant={'link'} className='text-grey-400' onClick={() => navigate('/profile')}>{user.data.firstName} {user.data.lastName?.slice(0, 1)}.</Button>
       <Button variant={'outline'} onClick={() => logout()}>Выйти</Button>
     </div>
   )
@@ -26,6 +26,7 @@ const CurrentLoginUser = () => {
 
 
 const Header = (props: Props) => {
+  const navigate = useNavigate()
   const { i18n, t } = useTranslation('header');
   const [lang, setLang] = useState(i18n.language?.split('-')[0] || 'ru');
   const { user, setUser } = useUserStore();
@@ -34,7 +35,6 @@ const Header = (props: Props) => {
     setUser()
   }
 
-  const navigate = useNavigate()
   return (
     <header className="pt w-full">
       <div className='flex items-center justify-between bg-gradient-to-t from-gray-200 to-gray-300 py-5 px-10 rounded '>
@@ -47,7 +47,6 @@ const Header = (props: Props) => {
           <Button >{t('callbuttonLabel')} </Button>
           {!user.hasAuth ? <Button onClick={() => navigate('/auth/login')} variant={'outline'} >{t('button.login')} </Button> : <CurrentLoginUser />}
 
-
           <Select onValueChange={(value) => { setLang(value); i18n.changeLanguage(value) }} value={lang} >
             <SelectTrigger className="">
               <SelectValue />
@@ -57,7 +56,6 @@ const Header = (props: Props) => {
               <SelectItem value="en">en</SelectItem>
             </SelectContent>
           </Select>
-
 
         </div>
       </div>

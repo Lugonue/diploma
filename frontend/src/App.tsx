@@ -7,6 +7,8 @@ import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegistrePage";
 import ContentLayout from "components/layouts/ContentLayout";
 import Catalog from "./pages/Catalog";
+import UserProfile from "./pages/UserProfile";
+import Error500 from "./pages/Error500";
 
 type Props = {}
 
@@ -21,6 +23,7 @@ const App = (props: Props) => {
                     <Route path="" element={<ContentLayout />} >
                         <Route path="" element={<HomePage />} />
                         <Route path="catalog" element={<Catalog />} />
+                        <Route path="profile" element={<UserProfile />} />
 
                     </Route>
                     <Route path="/auth" element={<LoginLayout />}>
@@ -28,8 +31,8 @@ const App = (props: Props) => {
                         <Route path="register" element={<RegisterPage />} />
 
                     </Route>
+                    <Route path="500" element={<Error500 />} />
                 </Route>
-
 
             </Routes>
         </Router>

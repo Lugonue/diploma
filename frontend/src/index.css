@@ -15,6 +15,7 @@
   html {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
+    @apply overflow-x-clip;
   }
 
   @keyframes slide {
@@ -26,7 +27,7 @@
   }
 
   main {
-    @apply px-4 min-h-screen sm:px-0 w-screen;
+    @apply min-h-screen sm:px-0 w-screen;
     /* background-color: ; */
     /* background-image: radial-gradient(
         hsla(0, 0%, 84.3%, 0.25) 1px,
@@ -166,4 +167,10 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* CUISTOM CLASSES */
+
+.contentContainer {
+  @apply mx-auto w-full lg:w-[1000px] min-h-[calc(100vh-404px)];
 }

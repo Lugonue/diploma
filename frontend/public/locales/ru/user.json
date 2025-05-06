@@ -1,0 +1,10 @@
+{
+  "infoCard": {
+    "lastName": "Фамилия",
+    "firstName": "Имя",
+    "email": "Эл. почта",
+    "dateOfBirth": "Дата рождения",
+    "addresses": "Адреса",
+    "phones": "Телефоны"
+  }
+}

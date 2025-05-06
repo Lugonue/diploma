@@ -27,8 +27,8 @@ export function ActionsCarousel() {
           <CarouselItem key={index}>
             <div className="p-1">
               <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-2">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
+                <CardContent className="flex aspect-video items-center justify-center p-2">
+                  <span className="text-2xl font-semibold">{index + 1}</span>
                 </CardContent>
               </Card>
             </div>
