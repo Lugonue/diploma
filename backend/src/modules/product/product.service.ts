@@ -6,6 +6,7 @@ import { Category } from './entities/category.entity';
 import { ProductType } from './entities/type.entity'
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FilterDto } from './dto/filter.dto';
+import { CreateCategoryDto } from './dto/create-category.dto';
 
 @Injectable()
 export class ProductService {
@@ -88,5 +89,18 @@ export class ProductService {
 
   async findOneCategory(id: number) {
     return await this.dataSource.getRepository(Category).findOne({ where: { id }, relations: ['products'] });
+  }
+
+  async createCategory(createCategoryDto: CreateCategoryDto) {
+    const category = this.dataSource.getRepository(Category).create(createCategoryDto);
+    return this.dataSource.getRepository(Category).save(category);
+  }
+
+  async removeCategory(id: number) {
+    const category = await this.findOneCategory(id);
+    if (!category) {
+      throw new NotFoundException(`Category with id ${id} not found`);
+    }
+    return this.dataSource.getRepository(Category).remove(category);
   }
 }
