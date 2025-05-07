@@ -5,17 +5,17 @@ export type Product = {
   id: number;
   name: string;
   brand: string;
-  price: 0;
+  price: number;
   category: Category;
   type: {
-    id: 0;
+    id: number;
     name: string;
     products: [string];
   };
   color: string;
   description: string;
   image_url: string;
-  number_of_purchases: 0;
+  number_of_purchases: number;
 };
 type Store = {
   productList: Product[] | null;

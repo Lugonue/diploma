@@ -39,6 +39,9 @@
   h3 {
     @apply text-lg font-semibold;
   }
+  h4 {
+    @apply text-lg font-semibold;
+  }
 }
 
 :root {
