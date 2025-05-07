@@ -9,12 +9,9 @@ import { ImgCarousel } from '../ActionsCarousel'
 
 export const ProductCard = ({ image_url, name, price, skeleton, description }: Partial<Product> & { skeleton?: boolean }) => {
 
-
     if (skeleton) {
         return <Skeleton className='w-[15rem] h-[20rem]' />
     }
-
-
     return (
         <div className='flex flex-col w-[15rem] relative'>
             <img src={image_url} width={300} height={200} className='rounded-lg' />
@@ -39,6 +36,23 @@ const ProductExtended = ({ image_url, name, description }: Partial<Product>) => 
                 <p className='line-clamp-6 text-gray-600 leading-5'>{description} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae cum eaque nostrum aut voluptatem architecto porro, cupiditate veniam accusantium dolorum provident nulla sit incidunt magni a dolorem natus omnis corrupti.</p>
             </div>
             <Button className='rounded-2xl' >Добавить в корзину</Button>
+        </div>
+    )
+}
+
+export const ProductInCart = ({ name, price, image_url }: Product) => {
+    return (
+        <div className="flex justify-between w-[12rem] gap-2">
+            <div className="grid">
+                <img src={image_url} alt="" width={50} />
+            </div>
+            <div className="grid">
+                <span className='text-sm line-clamp-1'>{name}</span>
+                <span className='text-xs'>{price}</span>
+            </div>
+            <div className="grid">
+                <Button variant={'ghost'}>X</Button>
+            </div>
         </div>
     )
 }

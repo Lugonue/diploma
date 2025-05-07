@@ -10,7 +10,7 @@ export type Product = {
   type: {
     id: number;
     name: string;
-    products: [string];
+    products: string[];
   };
   color: string;
   description: string;

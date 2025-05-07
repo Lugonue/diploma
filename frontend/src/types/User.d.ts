@@ -27,4 +27,6 @@ export interface User {
   hasAuth: boolean;
 }
 
-export type Phone = string
+export type Phone = {
+  number: string;
+};

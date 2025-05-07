@@ -1,10 +1,12 @@
 import { User } from '@/types/User'
 import { Button } from 'components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from 'components/ui/popover'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
 import useUserStore from 'hooks/stores/useUserStore'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import Cart from './blocks/User/Cart'
 
 type Props = { id?: string, user?: User }
 
@@ -44,7 +46,11 @@ const Header = (props: Props) => {
 
         </div>
         <div className="flex gap-2">
-          <Button >{t('cartButton')} </Button>
+          <Popover>
+            <PopoverTrigger><Button >{t('cartButton')} </Button></PopoverTrigger>
+            <PopoverContent className='w-auto'><Cart /></PopoverContent>
+          </Popover>
+
           {!user.hasAuth ? <Button onClick={() => navigate('/auth/login')} variant={'outline'} >{t('button.login')} </Button> : <CurrentLoginUser />}
 
           <Select onValueChange={(value) => { setLang(value); i18n.changeLanguage(value) }} value={lang} >
