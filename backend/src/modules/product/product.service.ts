@@ -60,7 +60,7 @@ export class ProductService {
     const { categoryId, typeId, brand,  minPrice, maxPrice } = filterDto;
     
     if (categoryId) {
-      query.andWhere('product.category_id = :categoryId', { categoryId });
+      query.andWhere('product.categoryId = :categoryId', { categoryId });
     }
 
     if (brand) {
@@ -68,7 +68,7 @@ export class ProductService {
     }
 
     if (typeId) {
-      query.andWhere('product.type_id = :typeId', { typeId });
+      query.andWhere('product.typeId = :typeId', { typeId });
     }
 
     if (minPrice) {
