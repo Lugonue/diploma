@@ -26,3 +26,5 @@ export interface User {
   } | null;
   hasAuth: boolean;
 }
+
+export type Phone = string

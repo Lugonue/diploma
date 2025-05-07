@@ -1,6 +1,6 @@
 import auth, { LoginBody, RergisterBody } from "@/api/endpoints/auth";
 import { useState } from "react";
-import useUserStore from "./useStore";
+import useUserStore from "./stores/useUserStore";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 

@@ -1,7 +1,7 @@
 import { User } from '@/types/User'
 import { Button } from 'components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
-import useUserStore from 'hooks/useStore'
+import useUserStore from 'hooks/stores/useUserStore'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
@@ -18,7 +18,7 @@ const CurrentLoginUser = () => {
 
   return (
     <div className="flex gap-2 items-center mx-4">
-      <Button variant={'link'} className='text-grey-400' onClick={() => navigate('/profile')}>{user.data.firstName} {user.data.lastName?.slice(0, 1)}.</Button>
+      <Button variant={'link'} className='text-grey-400' onClick={() => navigate('/profile')}>{user.data.lastName} {user.data.firstName?.slice(0, 1)}.</Button>
       <Button variant={'outline'} onClick={() => logout()}>Выйти</Button>
     </div>
   )
@@ -44,7 +44,7 @@ const Header = (props: Props) => {
 
         </div>
         <div className="flex gap-2">
-          <Button >{t('callbuttonLabel')} </Button>
+          <Button >{t('cartButton')} </Button>
           {!user.hasAuth ? <Button onClick={() => navigate('/auth/login')} variant={'outline'} >{t('button.login')} </Button> : <CurrentLoginUser />}
 
           <Select onValueChange={(value) => { setLang(value); i18n.changeLanguage(value) }} value={lang} >

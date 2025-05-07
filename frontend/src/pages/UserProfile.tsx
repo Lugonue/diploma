@@ -1,8 +1,9 @@
-import useBCStore from 'hooks/stores/useBCstore'
 import UserInfo from 'components/template/blocks/User/UserInfo'
 import UserOrders from 'components/template/blocks/User/UserOrders'
+import { Card, CardContent, CardHeader } from 'components/ui/card'
 import { Separator } from 'components/ui/separator'
-import React, { useEffect } from 'react'
+import useBCStore from 'hooks/stores/useBCstore'
+import { useEffect } from 'react'
 
 type Props = {}
 
@@ -15,10 +16,19 @@ const UserProfile = (props: Props) => {
     }, [])
 
     return (
-        <div className="flex-1 bg-secondary/50 rounded-2xl p-5 flex ">
-            <UserInfo />
-            <Separator orientation="vertical" className='mx-auto border-amber-500' />
-            <UserOrders />
+        <div className="flex-1 grid place-content-center my-10">
+            <Card>
+                <CardHeader>
+                    <h2>Мой профиль</h2>
+                </CardHeader>
+                <CardContent>
+                    <div className="w-[30rem] rounded-2xl flex flex-col">
+                        <UserInfo />
+                        <Separator orientation="vertical" className='mx-auto border-amber-500' />
+                        <UserOrders />
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     )
 }
