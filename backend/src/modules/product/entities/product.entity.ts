@@ -29,7 +29,7 @@ export class Product {
   description: string;
 
   @Column('text', { nullable: true })
-  imageBase64: string;
+  imageUrl: string;
 
   @Column({ default: 0})
   number_of_purchases: number;

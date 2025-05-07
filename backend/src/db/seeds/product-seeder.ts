@@ -21,8 +21,7 @@ interface CsvProduct {
 }
 
 export default class ProductSeeder implements Seeder {
-  public async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<void> {
-    // Проверяем, есть ли продукты в базе
+  public async run(dataSource: DataSource, _factoryManager: SeederFactoryManager): Promise<void> {
     const productRepository = dataSource.getRepository(Product);
     const productCount = await productRepository.count();
 
@@ -46,6 +45,9 @@ export default class ProductSeeder implements Seeder {
       products.push(record as CsvProduct);
     }
 
+    const uploadDir = path.join(process.cwd(), 'uploads');
+    fs.mkdirSync(uploadDir, { recursive: true });
+
     for (const record of products) {
       let category = await dataSource.getRepository(Category).findOne({ where: { name: record.category } });
       if (!category) {
@@ -59,12 +61,19 @@ export default class ProductSeeder implements Seeder {
         await dataSource.getRepository(ProductType).save(productType);
       }
 
-      let imageBase64;
+      let imgUrl: string | undefined = undefined;
       if (record.imgUrl) {
         try {
           const response: AxiosResponse<ArrayBuffer> = await axios.get(record.imgUrl, { responseType: 'arraybuffer' });
           const buffer = Buffer.from(response.data);
-          imageBase64 = `data:image/jpeg;base64,${buffer.toString('base64')}`;
+
+          const matches = record.imgUrl.match(/\.([a-zA-Z]+)$/);
+          const imageType = matches ? matches[1] : 'jpg';
+          const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 5)}.${imageType}`;
+          const filePath = path.join(uploadDir, fileName);
+
+          fs.writeFileSync(filePath, buffer);
+          imgUrl = `/uploads/${fileName}`;
         } catch {
           console.warn(`Не удалось загрузить изображение для ${record.name}`);
         }
@@ -79,7 +88,7 @@ export default class ProductSeeder implements Seeder {
         number_of_purchases: parseInt(record.numberOfPurchases, 10),
         category,
         type: productType,
-        imageBase64,
+        imageUrl: imgUrl,
       });
 
       await dataSource.getRepository(Product).save(product);
