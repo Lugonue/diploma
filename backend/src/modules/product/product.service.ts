@@ -84,11 +84,11 @@ export class ProductService {
   }
 
   async findAllCategories() {
-    return await this.dataSource.getRepository(Category).find();
+    return await this.dataSource.getRepository(Category).find({ relations: ['types'] });
   }
 
   async findOneCategory(id: number) {
-    return await this.dataSource.getRepository(Category).findOne({ where: { id }, relations: ['products'] });
+    return await this.dataSource.getRepository(Category).findOne({ where: { id }, relations: ['products', 'types'] });
   }
 
   async createCategory(createCategoryDto: CreateCategoryDto) {
