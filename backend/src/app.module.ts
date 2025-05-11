@@ -23,6 +23,7 @@ import { OrderModule } from './modules/order/order.module';
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_DATABASE'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        seeds: [__dirname + 'src/db/seeds/*.ts'],
         synchronize: config.get('DB_SYNCHRONIZE'), // false в production!
         logging: ['error', 'warn'], // Логирование запросов (опционально)
         autoLoadEntities: true,

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { Category } from "./category.entity";
 import { ProductType } from './type.entity';
 
@@ -17,11 +17,9 @@ export class Product {
   price: number;
 
   @ManyToOne(() => Category, (category) => category.products)
-  @JoinColumn({ name: 'category_id' })
   category: Category;
 
   @ManyToOne(() => ProductType, (type) => type.products)
-  @JoinColumn({ name: 'type_id' })
   type: ProductType;
 
   @Column({ nullable: true })
@@ -30,8 +28,8 @@ export class Product {
   @Column('text', { nullable: true })
   description: string;
 
-  @Column({ nullable: true })
-  image_url: string;
+  @Column('text', { nullable: true })
+  imageUrl: string;
 
   @Column({ default: 0})
   number_of_purchases: number;
