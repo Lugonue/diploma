@@ -25,11 +25,11 @@ export type RergisterBody = {
 
 export type Address = {
   street: string;
-  house: string;
-  building: string;
-  apartment: string;
-  entrance: string;
-  floor: string;
+  house?: string;
+  building?: string;
+  apartment?: string;
+  entrance?: string;
+  floor?: string;
 };
 export type Phone = {
   number: string;

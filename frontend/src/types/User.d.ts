@@ -1,3 +1,5 @@
+import { Address } from "@/api/endpoints/auth";
+
 export interface User {
   data: {
     firstName: string;
@@ -8,21 +10,10 @@ export interface User {
     password: string;
     avatarUrl: string;
     role: string;
-    addresses: [
-      {
-        street: string;
-        house: string;
-        building: string;
-        apartment: string;
-        entrance: string;
-        floor: string;
-      },
-    ];
-    phones: [
-      {
-        number: string;
-      },
-    ];
+    addresses: Address[];
+    phones: {
+      number: string;
+    }[];
   } | null;
   hasAuth: boolean;
 }
