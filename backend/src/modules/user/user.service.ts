@@ -55,8 +55,8 @@ export class UserService {
     }
 
     if (phones) {
-      const adressIds = user.addresses.map(address => address.id) 
-      await this.dataSource.getRepository(Address).delete(adressIds);
+      const phoneIds = user.addresses.map(phone => phone.id) 
+      await this.dataSource.getRepository(Address).delete(phoneIds);
       
       const newPhones = phones.map((phoneData): Phone => {
         const phone = new Phone;
