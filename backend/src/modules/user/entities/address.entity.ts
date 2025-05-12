@@ -7,10 +7,10 @@ export class Address {
   @PrimaryGeneratedColumn()  
   id: number;  
 
-  @Column()  
+  @Column({ nullable: true })  
   street: string;  
 
-  @Column()  
+  @Column({ nullable: true })  
   house: string;  
 
   @Column({ nullable: true })  
