@@ -10,6 +10,13 @@ import Cart from './blocks/User/Cart'
 
 type Props = { id?: string, user?: User }
 
+export const getFIO = (user: User['data']) => {
+  if (!user) {
+    console.error('no user!')
+    return ''
+  }
+  return `${user.lastName} ${user.firstName?.slice(0, 1)}. ${user.middleName ? (user.middleName.slice(0, 1) + '.') : ''}`
+}
 
 const CurrentLoginUser = () => {
   const navigate = useNavigate()
@@ -20,7 +27,7 @@ const CurrentLoginUser = () => {
 
   return (
     <div className="flex gap-2 items-center mx-4">
-      <Button variant={'link'} className='text-grey-400' onClick={() => navigate('/profile')}>{user.data.lastName} {user.data.firstName?.slice(0, 1)}.</Button>
+      <Button variant={'link'} className='text-grey-400' onClick={() => navigate('/profile')}>{getFIO(user.data)}</Button>
       <Button variant={'outline'} onClick={() => logout()}>Выйти</Button>
     </div>
   )

@@ -44,7 +44,7 @@ const AdminPage = (props: Props) => {
                 </CardHeader>
                 <CardContent>
                     <div className="w-[30rem] rounded-2xl flex flex-col">
-                        <TabsUI tabsTriggers={tabs} defaultValue='users' tabsContents={tabsContents} />
+                        <TabsUI tabsTriggers={tabs} defaultValue='users' tabsContents={tabsContents} classNames='w-full'/>
                     </div>
                 </CardContent>
             </Card>
