@@ -90,6 +90,9 @@ const Defenition = ({ title, value, field }: Props) => {
         if (field === 'phones') {
             return (value as Phone[]).map(i => i.number).join(', ')
         }
+        if (field === 'addresses') {
+            return (value as Address[]).map(i => i.street).join(', ')
+        }
         return Array.isArray(value) ? value.join(', ') : value
     }
     return (
