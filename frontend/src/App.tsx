@@ -9,6 +9,8 @@ import ContentLayout from "components/layouts/ContentLayout";
 import Catalog from "./pages/Catalog";
 import UserProfile from "./pages/UserProfile";
 import Error500 from "./pages/Error500";
+import AdminLayout from "components/layouts/AdminLayout";
+import AdminPage from "./pages/AdminPage";
 
 type Props = {}
 
@@ -30,6 +32,9 @@ const App = (props: Props) => {
                         <Route path="login" element={<LoginPage />} />
                         <Route path="register" element={<RegisterPage />} />
 
+                    </Route>
+                    <Route path="/admin" element={<AdminLayout />}>
+                        <Route path="" element={<AdminPage />} />
                     </Route>
                     <Route path="500" element={<Error500 />} />
                 </Route>
