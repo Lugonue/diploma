@@ -17,7 +17,7 @@ const AdminUsers = (props: Props) => {
   })
   return (
     <div>
-      {users.map(u => <UserListItem user={u} />)}
+      {users.map(u => <UserListItem user={u} key={u?.lastName} />)}
     </div>
   )
 }

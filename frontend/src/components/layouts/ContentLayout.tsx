@@ -5,7 +5,7 @@ type Props = {}
 
 const ContentLayout = (props: Props) => {
     return (
-        <div id="content" className="contentContainer">
+        <div id="content" className="mx-auto w-full lg:w-[1000px] min-h-[calc(100vh-404px)]">
             <BreadCrumbs />
             <Outlet />
         </div>

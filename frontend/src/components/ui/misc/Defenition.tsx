@@ -35,10 +35,10 @@ const Defenition = ({ title, value, field }: Props) => {
         setUserForm({ addresses: newAd })
     }
     const onRm = (index: number) => {
-        const newPhones: Phone[] = [...userForm?.phones || []]
-        newPhones.splice(index, 1)
-        setUserForm({ phones: newPhones })
-
+        if (!field || !userForm) return console.error('no filed or userFOrm')
+        const newData: any[] = [...userForm[field as keyof typeof userForm] || []]
+        newData.splice(index, 1)
+        setUserForm({ [field as string]: newData })
     }
 
 
@@ -62,7 +62,7 @@ const Defenition = ({ title, value, field }: Props) => {
                         <Button onClick={() => setUserForm({ ...userForm, phones: [...userForm?.phones || [], { number: '' }] })}> Добавить</Button>
                     </div >
                 )
-            case 'addresses': // бэк должен сделать поля nullble
+            case 'addresses':
                 return (
                     <div className="flex flex-col p-5 border rounded-2xl relative gap-2">
                         {userForm?.addresses && userForm.addresses.map((p, index) => {

@@ -28,12 +28,12 @@ const App = (props: Props) => {
                         <Route path="profile" element={<UserProfile />} />
 
                     </Route>
-                    <Route path="/auth" element={<LoginLayout />}>
+                    <Route path="auth" element={<LoginLayout />}>
                         <Route path="login" element={<LoginPage />} />
                         <Route path="register" element={<RegisterPage />} />
 
                     </Route>
-                    <Route path="/admin" element={<AdminLayout />}>
+                    <Route path="admin" element={<AdminLayout />}>
                         <Route path="" element={<AdminPage />} />
                     </Route>
                     <Route path="500" element={<Error500 />} />

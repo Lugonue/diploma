@@ -21,9 +21,9 @@ const TabsUI = (props: Props) => {
     return (
         <Tabs defaultValue={props.defaultValue} className={cn('w-[400px]', props.classNames)}>
             <TabsList>
-                {props.tabsTriggers.map((t) => <TabsTrigger value={t.key}>{t.label}</TabsTrigger>)}
+                {props.tabsTriggers.map((t) => <TabsTrigger key={t.key} value={t.key}>{t.label}</TabsTrigger>)}
             </TabsList>
-            {props.tabsContents.map(c => <TabsContent value={c.key}>{c.contents}</TabsContent>)}
+            {props.tabsContents.map(c => <TabsContent key={c.key} value={c.key}>{c.contents}</TabsContent>)}
 
         </Tabs>
     )

@@ -64,6 +64,39 @@
       "label": "Подтвердите пароль",
       "placeholder": "Подтвердите пароль"
     }
+  },
+  "product": {
+    "name": {
+      "label": "Наименование",
+      "placeholder": "Введите наименование товара"
+    },
+    "brand": {
+      "label": "Бренд",
+      "placeholder": "Введите наименование бренда"
+    },
+    "price": {
+      "label": "Цена",
+      "placeholder": "Введите цену за единицу"
+    },
+    "category_id": {
+      "label": "Категория",
+      "placeholder": "Выберите категорию"
+    },
+    "type_id": {
+      "label": "Тип",
+      "placeholder": "Выберите тип"
+    },
+    "color": {
+      "label": "Цвет",
+      "placeholder": "Выберите цвет"
+    },
+    "description": {
+      "label": "Описание",
+      "placeholder": "Введите описание"
+    },
+    "image_url": {
+      "label": "Изображение",
+      "placeholder": "Изображение"
+    }
   }
-
 }

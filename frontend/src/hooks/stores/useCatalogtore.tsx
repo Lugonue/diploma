@@ -3,7 +3,14 @@ import { create } from "zustand";
 export type Category = {
     id: number,
     name: string,
-    products: any[]
+    products: any[];
+    "types": CategoryType[]
+}
+export type CategoryType = {
+    "id": number,
+    "name": string,
+    "category"?: string,
+    products?: string[]
 }
 type Store = {
     state: {
