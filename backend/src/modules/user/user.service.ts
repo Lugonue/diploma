@@ -44,19 +44,25 @@ export class UserService {
     }
 
     if (addresses) {
+      const adressIds = user.addresses.map(address => address.id) 
+      await this.dataSource.getRepository(Address).delete(adressIds);
+
       const newAddresses = addresses.map((addressData): Address => {
         const address = new Address();
         return Object.assign(address, addressData);
       })
-      user.addresses = user.addresses.concat(newAddresses)
+      user.addresses = newAddresses;
     }
 
     if (phones) {
+      const adressIds = user.addresses.map(address => address.id) 
+      await this.dataSource.getRepository(Address).delete(adressIds);
+      
       const newPhones = phones.map((phoneData): Phone => {
         const phone = new Phone;
         return Object.assign(phone, phoneData);
       })
-      user.phones = user.phones.concat(newPhones);
+      user.phones = newPhones;
     }
 
     if (removeAddressIds) {
