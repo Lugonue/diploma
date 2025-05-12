@@ -1,11 +1,13 @@
 import { IsString, IsOptional } from 'class-validator';
 
 export class AddressDto {
+  @IsOptional()
   @IsString()
-  street: string;
+  street?: string;
 
+  @IsOptional()
   @IsString()
-  house: string;
+  house?: string;
 
   @IsOptional()
   @IsString()
