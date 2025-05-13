@@ -1,20 +1,21 @@
 import { Address } from "@/api/endpoints/auth";
 
+export type UserData = {
+  id?: number;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  email: string;
+  dateOfBirth: string;
+  password: string;
+  avatarUrl: string;
+  role: string;
+  addresses: Address[];
+  phones: Phone[];
+};
+
 export interface User {
-  data: {
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    email: string;
-    dateOfBirth: string;
-    password: string;
-    avatarUrl: string;
-    role: string;
-    addresses: Address[];
-    phones: {
-      number: string;
-    }[];
-  } | null;
+  data: UserData | null;
   hasAuth: boolean;
 }
 

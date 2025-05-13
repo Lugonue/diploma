@@ -22,7 +22,6 @@ const useUserStore = create<Store>((set) => ({
       const { data } = await auth.getMe();
       userData = data;
     }
-    console.log(userData);
     set((state) => ({
       ...state,
       user: { ...state.user, ...{ data: userData } },

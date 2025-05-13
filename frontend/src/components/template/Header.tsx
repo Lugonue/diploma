@@ -55,11 +55,10 @@ const Header = (props: Props) => {
         <div className="flex gap-2">
 
           <Button variant={'link'} onClick={() => navigate('/admin')}>В админ панель</Button>
-
-          <Popover>
+          {user.hasAuth && <Popover>
             <PopoverTrigger><Button >{t('cartButton')} </Button></PopoverTrigger>
             <PopoverContent className='w-auto'><Cart /></PopoverContent>
-          </Popover>
+          </Popover>}
 
           {!user.hasAuth ? <Button onClick={() => navigate('/auth/login')} variant={'outline'} >{t('button.login')} </Button> : <CurrentLoginUser />}
 

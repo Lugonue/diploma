@@ -11,7 +11,6 @@ const Layout = (props: Props) => {
             <main className="min-h-screen flex flex-col bg-emerald-100 overflow-hidden">
                 <Header id="header" />
                 <Outlet />
-                <Footer />
                 <Toaster position="top-center" />
             </main>
         </>

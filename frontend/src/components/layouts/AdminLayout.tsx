@@ -4,7 +4,7 @@ type Props = {}
 
 const AdminLayout = (props: Props) => {
   return (
-    <div className='grid place-content-center my-auto bg-white'>
+    <div className='grid place-content-center min-h-screen bg-white pb-[30rem]'>
       <Outlet />
     </div>
   )

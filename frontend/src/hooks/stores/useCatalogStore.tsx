@@ -22,7 +22,7 @@ type Store = {
     setCurrentCategoryId: (id: number) => void;
 };
 
-const useCatalogtore = create<Store>((set) => ({
+const useCatalogStore = create<Store>((set) => ({
     state: {
         currentCategoryId: null
     },
@@ -39,4 +39,4 @@ const useCatalogtore = create<Store>((set) => ({
         }));
     },
 }));
-export default useCatalogtore;
+export default useCatalogStore;

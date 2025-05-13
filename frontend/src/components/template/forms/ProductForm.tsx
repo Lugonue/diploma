@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from 'components/ui/button';
 import SelectUI from 'components/ui/form/SelectUI';
 import { Textarea } from 'components/ui/textarea';
-import { Category } from 'hooks/stores/useCatalogtore';
+import { Category } from 'hooks/stores/useCatalogStore';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

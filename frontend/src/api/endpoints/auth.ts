@@ -1,4 +1,4 @@
-import { User } from "@/types/User";
+import { Phone, User } from "@/types/User";
 import apiClient from "../apiClient";
 
 export default {
@@ -30,7 +30,4 @@ export type Address = {
   apartment?: string;
   entrance?: string;
   floor?: string;
-};
-export type Phone = {
-  number: string;
 };

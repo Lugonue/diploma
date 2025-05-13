@@ -3,11 +3,18 @@ import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 export const responseInterceptor = (response: AxiosResponse) => {
-  const navigate = useNavigate();
+  console.log(response);
+  // const navigate = useNavigate();
   if (response.status === 500) {
-    navigate("/500");
+    window.location.replace("/500");
   }
-  toast.error(response.data?.message || "Ошибка сервера");
+  if (response.status === 401) {
+    toast.error(response.data?.message || "Пользователь не авторизован");
+  } else if (response.status === 403) {
+    toast.error("Доступ запрещен. Вы не администратор");
+  } else {
+    toast.error(response.data?.message || "Ошибка сервера");
+  }
 
   return response;
 };

@@ -14,7 +14,7 @@ function HomePage() {
   const { setBC } = useBCStore();
   useEffect(() => {
     setBC([{ link: '/', name: 'Главная' }])
-  })
+  },[])
   return (
     <div id="home" className="grid flex-1 contentContainer gap-5">
       <div className="flex justify-between gap-5">

@@ -32,15 +32,13 @@ const AdminProducts = (props: Props) => {
             </DialogHeader>
             <Suspense fallback={<div>Loading...</div>}>
               <ProductForm />
-
             </Suspense>
-
           </DialogContent>
         </Dialog>
 
 
       </div>
-      {products.map(p => <ProductListItem product={p} key={p.id} />)}
+      {products?.map(p => <ProductListItem product={p} key={p.id} />)}
 
     </div>
   )

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Category } from "./useCatalogtore";
+import { Category } from "./useCatalogStore";
 
 export type Product = {
   id: number;

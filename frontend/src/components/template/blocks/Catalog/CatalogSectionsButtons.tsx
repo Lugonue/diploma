@@ -1,7 +1,8 @@
 import catalogApi from '@/api/endpoints/catalogApi';
+import mockCategories from '@/mocks/Categories';
 import { Button } from 'components/ui/button';
 import { Skeleton } from 'components/ui/skeleton';
-import useCatalogtore from 'hooks/stores/useCatalogtore';
+import useCatalogStore from 'hooks/stores/useCatalogStore';
 import { useEffect } from 'react';
 
 type Props = {}
@@ -17,11 +18,15 @@ const skeleton = () => {
 }
 
 const CatalogSectionsButtons = (props: Props) => {
-    const { categories, setCategories, state, setCurrentCategoryId } = useCatalogtore();
+    const { categories, setCategories, state, setCurrentCategoryId } = useCatalogStore();
     useEffect(() => {
         const fetch = async () => {
             const { data } = await catalogApi.getCategories()
-            setCategories(data)
+            if (!data?.length) {
+                setCategories(mockCategories) // MOCK
+            } else {
+                setCategories(data)
+            }
         }
         if (!categories) {
             fetch()
