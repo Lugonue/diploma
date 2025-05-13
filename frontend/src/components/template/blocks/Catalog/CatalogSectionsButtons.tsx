@@ -35,7 +35,7 @@ const CatalogSectionsButtons = (props: Props) => {
             setCurrentCategoryId(categories[0]?.id)
         }
 
-    }, [categories])
+    }, [])
     const getCN = (id: number) => `rounded-2xl bg-white ${id === state.currentCategoryId ? ' bg-accent text-white' : ''}`
 
     return (
