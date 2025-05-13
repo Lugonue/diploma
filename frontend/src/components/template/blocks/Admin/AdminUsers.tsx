@@ -9,7 +9,7 @@ const AdminUsers = (props: Props) => {
   const { users, fetchUsers } = useAdminStore()
   useEffect(() => {
     fetchUsers(users || [])
-  })
+  }, [])
   return (
     <div>
       {users?.map(u => <UserListItem user={u} key={u?.lastName} />)}

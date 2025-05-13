@@ -1,12 +1,10 @@
 import { AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 export const responseInterceptor = (response: AxiosResponse) => {
-  console.log(response);
-  // const navigate = useNavigate();
   if (response.status === 500) {
-    window.location.replace("/500");
+    window.location.href = "/500";
+    throw response;
   }
   if (response.status === 401) {
     toast.error(response.data?.message || "Пользователь не авторизован");
@@ -16,7 +14,7 @@ export const responseInterceptor = (response: AxiosResponse) => {
     toast.error(response.data?.message || "Ошибка сервера");
   }
 
-  return response;
+  throw response;
 };
 export const requestInterceptor = (config: InternalAxiosRequestConfig<any>) => {
   const token = localStorage.getItem("authToken");
