@@ -4,6 +4,7 @@ import { toast } from "sonner";
 export const responseInterceptor = (response: AxiosResponse) => {
   if (response.status === 500) {
     window.location.href = "/500";
+    throw response;
   }
   if (response.status === 401) {
     toast.error(response.data?.message || "Пользователь не авторизован");
