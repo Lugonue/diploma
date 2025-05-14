@@ -3,6 +3,7 @@ import { toast } from "sonner";
 
 export const responseInterceptor = (response: AxiosResponse) => {
   if (response.status === 500) {
+    if (window.location.href.includes("/500")) return;
     window.location.href = "/500";
     throw response;
   }
