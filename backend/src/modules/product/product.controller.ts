@@ -41,6 +41,12 @@ export class ProductController {
     return this.productService.filter(filterDto);
   }
 
+  @Get('popular')
+  @Roles('user', 'admin')
+  getPopularProducts() {
+    return this.productService.getPopularProducts();
+  }
+
   @Get('categories')
   @Roles('user', 'admin')
   findAllCategories() {

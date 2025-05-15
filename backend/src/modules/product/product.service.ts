@@ -133,4 +133,12 @@ export class ProductService {
     }
     return this.dataSource.getRepository(Category).remove(category);
   }
+
+  async getPopularProducts(limit: number = 10) {
+    return await this.dataSource.getRepository(Product).find({
+      relations: ['category', 'type'],
+      order: { number_of_purchases: 'DESC' },
+      take: limit,
+    });
+  }
 }

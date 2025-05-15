@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { DataSource, In } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { Order } from './entities/order.entity';
+import { Order, OrderStatus } from './entities/order.entity';
 import { Address } from '../user/entities/address.entity';
 import { Phone } from '../user/entities/phone.entity';
 import { User } from '../user/entities/user.entity';
@@ -52,6 +52,9 @@ export class OrderService {
     if (!order) {
         throw new NotFoundException('Order not found');
     }
+
+    const wasCompleted = order.status === OrderStatus.COMPLETED;
+    const willBeCompleted = updateOrderDto.status === OrderStatus.COMPLETED;
 
     if (updateOrderDto.status) {
       order.status = updateOrderDto.status;
@@ -104,6 +107,11 @@ export class OrderService {
     }
 
     await this.dataSource.getRepository(Order).save(order);
+
+    if (!wasCompleted && willBeCompleted) {
+      await this.updateNumberOfPurchases(order);
+    }
+    
     return await this.findOne(id);
   }
 
@@ -113,5 +121,21 @@ export class OrderService {
       throw new NotFoundException(`Order with id ${id} not found`);
     }
     return this.dataSource.getRepository(Order).remove(order);
+  }
+
+  async updateNumberOfPurchases(order: Order) {
+    const productIds = order.items.map((item) => item.product.id);
+    const products = await this.dataSource.getRepository(Product).find({
+      where: { id: In(productIds) },
+    });
+
+    for (const item of order.items) {
+      const product = products.find((p) => p.id === item.product.id);
+      if (product) {
+        product.number_of_purchases += item.quantity;
+      }
+    }
+
+    await this.dataSource.getRepository(Product).save(products);
   }
 }
