@@ -39,7 +39,7 @@ const CatalogSectionsButtons = (props: Props) => {
     const getCN = (id: number) => `rounded-2xl bg-white ${id === state.currentCategoryId ? ' bg-accent text-white' : ''}`
 
     return (
-        <div className='flex justify-center gap-4 w-full overflow-auto'>
+        <div className='flex flex-wrap justify-center gap-4 w-full overflow-auto px-5'>
             {categories ? categories.map((cat) => {
                 return <Button className={getCN(cat.id)} variant='outline-2' key={cat.id} onClick={() => setCurrentCategoryId(cat.id)}> {cat.name}</Button>
             }) : skeleton()}

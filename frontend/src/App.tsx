@@ -12,10 +12,9 @@ import Error500 from "./pages/Error500";
 import AdminLayout from "components/layouts/AdminLayout";
 import AdminPage from "./pages/AdminPage";
 
-type Props = {}
 
-const App = (props: Props) => {
-    const { t, ready } = useTranslation();
+const App = () => {
+    const { ready } = useTranslation();
 
     if (!ready) return <div>Loading...</div>;
     return (
