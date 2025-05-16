@@ -29,7 +29,7 @@ export class UpdateProductDto {
 
   @IsOptional()
   @IsString()
-  image_url?: string;
+  imageUrl?: string;
 
   @IsOptional()
   @IsNumber()

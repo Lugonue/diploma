@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post, Patch, Delete, Param, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Patch, Delete, Param, Query, UseGuards, UploadedFile } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto'; 
@@ -8,6 +8,8 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { UploadImage } from 'src/common/decorators/upload-image.decorator';
+import { ProductSchema } from 'src/common/schemes/product.schema';
 
 @Controller('products')
 @UseGuards(JwtAuthGuard, RoleGuard)
@@ -17,8 +19,14 @@ export class ProductController {
   
   @Post()
   @Roles('admin')
-  createProduct(@Body() createProductDto: CreateProductDto) {
-    return this.productService.createProduct(createProductDto);
+  @UploadImage()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody(ProductSchema)
+  createProduct(
+    @Body() createProductDto: CreateProductDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.productService.createProduct(createProductDto, file);
   }
 
   @Get()
@@ -31,6 +39,12 @@ export class ProductController {
   @Roles('user', 'admin')
   filter(@Query() filterDto: FilterDto) {
     return this.productService.filter(filterDto);
+  }
+
+  @Get('popular')
+  @Roles('user', 'admin')
+  getPopularProducts() {
+    return this.productService.getPopularProducts();
   }
 
   @Get('categories')
@@ -65,8 +79,15 @@ export class ProductController {
 
   @Patch(':id')
   @Roles('admin')
-  updateProduct(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.updateProduct(+id, updateProductDto);
+  @UploadImage()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody(ProductSchema)
+  updateProduct(
+    @Param('id') id: string, 
+    @Body() updateProductDto: UpdateProductDto,
+    @UploadedFile() file?: Express.Multer.File,
+) {
+    return this.productService.updateProduct(+id, updateProductDto, file);
   }
 
   @Delete(':id')

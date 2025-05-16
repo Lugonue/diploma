@@ -12,14 +12,17 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 export class ProductService {
   constructor(private dataSource: DataSource) {}
 
-  async createProduct(createProductDto: CreateProductDto) {
+  async createProduct(createProductDto: CreateProductDto, file?: Express.Multer.File) {
     const category = await this.dataSource.getRepository(Category).findOne({ where: { id: createProductDto.category_id } });
     const productType = await this.dataSource.getRepository(ProductType).findOne({ where: { id: createProductDto.type_id } });
-
     if (!category || !productType) {
       throw new NotFoundException('Category or ProductType not found');
     }
 
+    if (file) {
+      createProductDto.imageUrl = `/uploads/${file.filename}`;
+    }
+    
     const product = this.dataSource.getRepository(Product).create({
       ...createProductDto,
       category,
@@ -42,8 +45,35 @@ export class ProductService {
     return product;
   }
 
-  async updateProduct(id: number, updateProductDto: UpdateProductDto) {
-    await this.dataSource.getRepository(Product).update(id, updateProductDto);
+  async updateProduct(id: number, updateProductDto: UpdateProductDto, file?: Express.Multer.File) {
+    const product = await this.dataSource.getRepository(Product).findOne({ where: { id }, relations: ['category', 'type'] });
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    
+    Object.assign(product, updateProductDto);
+
+    if (updateProductDto.category_id !== undefined) {
+      const category = await this.dataSource.getRepository(Category).findOne({ where: { id: updateProductDto.category_id }});
+      if (!category) {
+        throw new NotFoundException('Category not found');
+      }
+      product.category = category;
+    }
+
+    if (updateProductDto.type_id !== undefined) {
+      const type = await this.dataSource.getRepository(ProductType).findOne({ where: { id: updateProductDto.type_id }});
+      if (!type) {
+        throw new NotFoundException('Product type not found');
+      }
+      product.type = type;
+    }
+
+    if (file) {
+      product.imageUrl = `/uploads/${file.filename}`;
+    }
+
+    await this.dataSource.getRepository(Product).save(product);
     return this.findOneProduct(id);
   }
 
@@ -102,5 +132,13 @@ export class ProductService {
       throw new NotFoundException(`Category with id ${id} not found`);
     }
     return this.dataSource.getRepository(Category).remove(category);
+  }
+
+  async getPopularProducts(limit: number = 10) {
+    return await this.dataSource.getRepository(Product).find({
+      relations: ['category', 'type'],
+      order: { number_of_purchases: 'DESC' },
+      take: limit,
+    });
   }
 }
