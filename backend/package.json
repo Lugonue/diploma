@@ -23,7 +23,9 @@
     "migration:run": "npm run typeorm migration:run -- -d dist/db/typeorm.config.js",
     "migration:generate": "npm run typeorm migration:generate -- -d dist/db/typeorm.config.js ./db/migrations/diplom",
     "migration:revert": "npm run typeorm migration:revert -- -d dist/db/typeorm.config.js",
-    "migration:show": "npm run typeorm migration:show -- -d dist/db/typeorm.config.js"
+    "migration:show": "npm run typeorm migration:show -- -d dist/db/typeorm.config.js",
+    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config -n dist/db/typeorm.config.js ",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed -n dist/db/typeorm.config-seeders.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -47,7 +49,8 @@
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.21",
-    "typeorm-extension": "^3.7.1"
+    "typeorm-extension": "^3.7.1",
+    "typeorm-seeding": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
