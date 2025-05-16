@@ -22,6 +22,7 @@ export const dataSource: DataSourceOptions & SeederOptions = {
   logging: configService.get('nodenv') === 'development',
   migrations: [`${__dirname}/migrations/*{.ts,.js}`],
   migrationsTableName: 'migrations',
+  seeds: [`${__dirname}/seeds/*{.ts,.js}`],
 };
 
 export default new DataSource(dataSource);
