@@ -76,9 +76,9 @@ const Header = (props: Props) => {
 
           {!user.hasAuth ? <Button onClick={() => navigate('/auth/login')} variant={'outline'} >{t('button.login')} </Button> : <CurrentLoginUser />}
 
-          <div className="div">
+          {/* <div className="div">
             <SelectUI selectItems={[{ key: 'ru', label: 'ru' }, { key: 'en', label: 'en' }]} onValueChange={(value) => { setLang(value); i18n.changeLanguage(value) }} value={lang} />
-          </div>
+          </div> */}
 
         </div>
       </div>

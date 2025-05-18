@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react(), tailwindcss()],
     server: {
-      port: 3000,
+      port: 3001,
       proxy: {
         // Проксирование всех запросов, начинающихся с /api
         "/api": {
