@@ -17,13 +17,14 @@ export const dataSource: DataSourceOptions & SeederOptions = {
   username: configService.get('DB_USERNAME'),
   password: configService.get('DB_PASSWORD'),
   database: configService.get('DB_DATABASE'),
-  entities: [`./dist/src/**/*.entity{.ts,.js}`],
-  // entities: [`${__dirname}/../src/**/*.entity{.ts,.js}`],
+  // entities: [`./dist/src/**/*.entity{.js}`],
+  entities: [`${__dirname}/../src/**/*.entity{.ts,.js}`],
   synchronize: configService.get('nodenv') === 'development',
   logging: configService.get('nodenv') === 'development',
   migrations: [`${__dirname}/migrations/*{.ts,.js}`],
   migrationsTableName: 'migrations',
   seeds: [`${__dirname}/seeds/*{.ts,.js}`],
+  factories: [`${__dirname}/factories/*{.ts,.js}`],
 };
 
 export default new DataSource(dataSource);
