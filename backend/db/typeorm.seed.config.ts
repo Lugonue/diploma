@@ -1,2 +1,2 @@
-import * as config from './typeorm.config';
-export = config.dataSource;
+import { dataSource } from './typeorm.config';
+export default dataSource;
