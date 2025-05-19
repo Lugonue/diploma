@@ -1,4 +1,5 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString, IsPositive } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class FilterDto {
   @IsOptional()
@@ -20,4 +21,14 @@ export class FilterDto {
   @IsOptional()
   @IsNumber()
   maxPrice?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsPositive()
+  page?: number = 1;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsPositive()
+  limit?: number = 20;
 }
