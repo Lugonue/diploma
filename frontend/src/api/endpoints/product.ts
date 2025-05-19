@@ -1,12 +1,13 @@
-import { Product } from "hooks/stores/useProductStor";
+import useProductStore, { Product } from "hooks/stores/useProductStor";
 import apiClient from "../apiClient";
+import { ProductAPIResponse } from "@/types/Product";
 
 const productApi = {
-  getAll: (params?: ProductsRequestParams) =>
-    apiClient.get("/products/filter", { params }),
+  getAll: (params: ProductsRequestParams) => {
+    return apiClient.get<ProductAPIResponse>("/products/filter", { params });
+  },
   getById: (id: number) => apiClient.get(`/products/${id}`),
-  create: (productData: FormData) =>
-    apiClient.post("/products", productData),
+  create: (productData: FormData) => apiClient.post("/products", productData),
   update: (id: number, productData: Record<string, string>) =>
     apiClient.put(`/products/${id}`, productData),
   delete: (id: number) => apiClient.delete(`/products/${id}`),
@@ -21,4 +22,6 @@ export type ProductsRequestParams = {
   brand?: string;
   minPrice?: number;
   maxPrice?: number;
+  page?: number;
+  limit?: number;
 };

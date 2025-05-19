@@ -1,11 +1,10 @@
+import productApi from '@/api/endpoints/product';
 import mockProducts from '@/mocks/Products';
-import useProductStore from 'hooks/stores/useProductStor';
+import PaginationUI from 'components/ui/navigations/PaginationUI';
+import useProductStore, { PaginationType } from 'hooks/stores/useProductStor';
 import { useEffect } from 'react';
 import { ProductCard } from '../Product/ProducCard';
 import Empty from '../Utils/Empty';
-import productApi from '@/api/endpoints/product';
-import useCatalogStore from 'hooks/stores/useCatalogStore';
-import { useLocation, useNavigate, useParams } from 'react-router';
 
 
 const getSkeletons = () => {
@@ -14,24 +13,18 @@ const getSkeletons = () => {
 
 
 const CatalogSectionContent = () => {
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const { productList, setProductList } = useProductStore();
-    const { state: catalogState, setCurrentCategoryId } = useCatalogStore();
+    const { productList, setProductList, setPagination, pagination, requestProductParams, setRequestProductParams } = useProductStore();
 
     useEffect(() => {
 
-        if (searchParams.get('category')) {
-            const params = Object.fromEntries(searchParams)
-            setCurrentCategoryId(+params.category)
-        }
         const fetch = async () => {
-            const { data } = await productApi.getAll({ categoryId: catalogState.currentCategoryId || undefined })
+            const { data } = await productApi.getAll(requestProductParams)
 
-            setProductList(data || mockProducts)
+            setProductList(data.data || mockProducts)
+            setPagination({ total: data.total, page: data.page, lastPage: data.lastPage })
         }
         fetch()
-    }, [catalogState.currentCategoryId])
+    }, [requestProductParams])
 
     window.scrollTo(0, 0)
 
@@ -39,6 +32,7 @@ const CatalogSectionContent = () => {
         <>
             <section className='flex flex-wrap gap-10 justify-center'>
                 {productList ? (productList?.length === 0 ? <Empty /> : productList?.map((p) => <ProductCard {...p} />)) : getSkeletons()}
+                <PaginationUI totalCount={pagination.lastPage || 1} currentPage={Number(pagination.page)} onPageChange={(page: number) => setRequestProductParams({ ...requestProductParams, page: page })} />
             </section>
         </>
     )

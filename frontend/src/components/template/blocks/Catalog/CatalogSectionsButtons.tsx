@@ -3,6 +3,7 @@ import mockCategories from '@/mocks/Categories';
 import { Button } from 'components/ui/button';
 import { Skeleton } from 'components/ui/skeleton';
 import useCatalogStore from 'hooks/stores/useCatalogStore';
+import useProductStore from 'hooks/stores/useProductStor';
 import { useEffect } from 'react';
 
 type Props = {}
@@ -19,6 +20,7 @@ const skeleton = () => {
 
 const CatalogSectionsButtons = (props: Props) => {
     const { categories, setCategories, state, setCurrentCategoryId } = useCatalogStore();
+    const { setRequestProductParams, requestProductParams } = useProductStore()
     useEffect(() => {
         const fetch = async () => {
             const { data } = await catalogApi.getCategories()
@@ -41,7 +43,7 @@ const CatalogSectionsButtons = (props: Props) => {
     return (
         <div className='flex flex-wrap justify-center gap-4 w-full overflow-auto px-5'>
             {categories ? categories.map((cat) => {
-                return <Button className={getCN(cat.id)} variant='outline-2' key={cat.id} onClick={() => setCurrentCategoryId(cat.id)}> {cat.name}</Button>
+                return <Button className={getCN(cat.id)} variant='outline-2' key={cat.id} onClick={() => { setRequestProductParams({ ...requestProductParams, categoryId: cat.id }); setCurrentCategoryId(cat.id) }}> {cat.name}</Button>
             }) : skeleton()}
         </div>
     )
