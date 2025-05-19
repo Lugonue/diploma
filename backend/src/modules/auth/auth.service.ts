@@ -21,7 +21,7 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const newUser = this.dataSource.getRepository(User).create({ ...createUserDto, password: hashedPassword });
+    const newUser = this.dataSource.getRepository(User).create({ ...createUserDto, password: hashedPassword, role: 'user' });
     await this.dataSource.getRepository(User).save(newUser);
 
     return { message: 'User registered successfully' };
