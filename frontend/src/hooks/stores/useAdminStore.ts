@@ -7,7 +7,7 @@ import { Product } from "./useProductStor";
 type Store = {
   users?: UserData[];
   products?: Product[];
-  fetchUsers: (u: UserData[]) => Promise<void>;
+  fetchUsers: (u?: UserData[]) => Promise<void>;
   fetchProducts: (p?: Product[]) => Promise<void>;
 };
 
@@ -16,7 +16,7 @@ const useAdminStore = create<Store>((set) => ({
   products: [],
 
   fetchUsers: async (users) => {
-    if (users.length) return;
+    if (users?.length) return;
     const { data } = await adminApi.getAllUsers();
     set((state) => ({ ...state, users: data }));
   },
