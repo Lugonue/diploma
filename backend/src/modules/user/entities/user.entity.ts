@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Address } from './address.entity';
 import { Phone } from './phone.entity';
-import { Order } from '@/modules/order/entities/order.entity';
+import { Order } from 'src/modules/order/entities/order.entity';
 
 @Entity('user')
 export class User {
