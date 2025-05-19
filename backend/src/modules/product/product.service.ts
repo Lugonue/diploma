@@ -87,7 +87,7 @@ export class ProductService {
 
   async filter(filterDto: FilterDto) {
     const query = this.dataSource.getRepository(Product).createQueryBuilder('product');
-    const { categoryId, typeId, brand,  minPrice, maxPrice } = filterDto;
+    const { categoryId, typeId, brand,  minPrice, maxPrice, page = 1, limit = 20 } = filterDto;
     
     if (categoryId) {
       query.andWhere('product.categoryId = :categoryId', { categoryId });
@@ -109,8 +109,14 @@ export class ProductService {
       query.andWhere('product.price <= :maxPrice', { maxPrice });
     }
     
-    const products = await query.getMany();
-    return products;
+    const [data, total] = await query
+        .leftJoinAndSelect('product.category', 'category')
+        .leftJoinAndSelect('product.type', 'type')
+        .skip((page - 1) * limit)
+        .take(limit)
+        .getManyAndCount();
+
+    return { data, total, page, lastPage: Math.ceil(total / limit) };
   }
 
   async findAllCategories() {
