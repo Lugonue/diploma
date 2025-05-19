@@ -1,6 +1,7 @@
 import AboutUsBlock from "components/template/blocks/AboutUsBlock";
 import CatalogPreview from "components/template/blocks/CatalogPreview";
 import HelloBlock from "components/template/blocks/HelloBlock";
+import FAQ from "components/template/blocks/Home/FAQ";
 import WhyUs from "components/template/blocks/WhyUs";
 import useBCStore from "hooks/stores/useBCstore";
 import { useEffect } from "react";
@@ -27,6 +28,10 @@ function HomePage() {
         <CatalogPreview />
       </div>
       <WhyUs />
+      <div className="flex flex-col gap-5 bg-secondary rounded">
+        <FAQ />
+
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import useProductStore from 'hooks/stores/useProductStor';
 import { useEffect } from 'react';
 import { ProductCard } from '../Product/ProducCard';
 import Empty from '../Utils/Empty';
+import productApi from '@/api/endpoints/product';
 
 
 const getSkeletons = () => {
@@ -14,9 +15,9 @@ const CatalogSectionContent = () => {
     const { productList, setProductList } = useProductStore();
     useEffect(() => {
         const fetch = async () => {
-            // const { data } = await productApi.getAll()
+            const { data } = await productApi.getAll()
 
-            setProductList(mockProducts)
+            setProductList(data || mockProducts)
         }
         if (!productList) {
             fetch()

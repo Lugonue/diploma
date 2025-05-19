@@ -15,6 +15,7 @@ export const ProductCard = ({ image_url, name, price, skeleton, description }: P
         <div className='flex flex-col w-[15rem] relative'>
             {/* <img src={image_url} width={300} height={200} className='rounded-lg' /> */}
             <div className='w-full aspect-square rounded-lg' style={{ background: `center/cover url(${image_url})` }}></div>
+
             <h4>{name}</h4>
             <p id='price'>{price}</p>
             <div className="flex">

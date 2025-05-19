@@ -10,27 +10,27 @@ const WhyUs = () => {
             img: '/public/img/landing-about-us.jpg'
         },
         {
-            title: 'Качественные бренды',
+            title: 'Профессиональные советы',
             img: ''
         },
         {
-            title: 'Качественные бренды',
+            title: 'Удобная доставка',
             img: ''
         },
         {
-            title: 'Качественные бренды',
+            title: 'Широкий ассортимент',
             img: ''
         },
     ]
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 my-10">
             <div className='font-bold text-center'>Почему выбирают нас</div>
             <div className="flex gap-4 justify-center">
                 {items.map((item, index) => (
                     <Card key={index} >
                         <CardContent className='flex flex-col items-center gap-2'>
                             <img src={'/public/img/landing-about-us.jpg'} alt="" className='w-15 rounded-full' />
-                            <div>{item.title}</div>
+                            <div className='font-bold'>{item.title}</div>
                         </CardContent>
                     </Card>
                 ))}
