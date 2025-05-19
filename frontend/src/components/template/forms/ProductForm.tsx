@@ -19,7 +19,9 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from "zod";
 
-type Props = {}
+type Props = {
+    closeDialog: () => void
+}
 
 const ProductForm = (props: Props) => {
     const [categories, setCategories] = useState<Category[]>([])
@@ -33,7 +35,7 @@ const ProductForm = (props: Props) => {
         type_id: z.number(),
         color: z.string(),
         description: z.string().optional(),
-        image_url: z.string().optional(),
+        image: z.instanceof(File).optional(),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -46,7 +48,13 @@ const ProductForm = (props: Props) => {
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         if (values) {
-            productApi.create(values)
+            const formData = new FormData()
+            for (const key in values) {
+                // @ts-ignore
+                formData.append(key, values[key])
+            }
+            productApi.create(formData)
+            props.closeDialog()
         }
     }
 
@@ -57,7 +65,6 @@ const ProductForm = (props: Props) => {
         }
         if (!categories.length) {
             fetch()
-
         }
     }, [])
 
@@ -150,6 +157,19 @@ const ProductForm = (props: Props) => {
                             <FormLabel>{t('product.description.label')}</FormLabel>
                             <FormControl>
                                 <Textarea placeholder={t('product.description.placeholder')} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="image"
+                    render={({ field: { onChange, value, ...field } }) => (
+                        <FormItem>
+                            <FormLabel>{t('product.image.label')}</FormLabel>
+                            <FormControl>
+                                <Input placeholder={t('product.image.placeholder')} type='file' {...field} onChange={(e) => onChange(e.target.files?.[0])} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

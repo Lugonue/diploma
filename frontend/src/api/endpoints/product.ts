@@ -5,7 +5,7 @@ const productApi = {
   getAll: (params?: ProductsRequestParams) =>
     apiClient.get("/products/filter", { params }),
   getById: (id: number) => apiClient.get(`/products/${id}`),
-  create: (productData: Record<string, unknown>) =>
+  create: (productData: FormData) =>
     apiClient.post("/products", productData),
   update: (id: number, productData: Record<string, string>) =>
     apiClient.put(`/products/${id}`, productData),
