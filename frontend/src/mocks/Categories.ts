@@ -27,4 +27,27 @@ const mockCategories: Category[] = [
   },
 ];
 
+export const catalogPreviewItems = [
+  {
+    name: "стельки",
+    desctiptions: "описание",
+    img: "https://via.placeholder.com/150",
+  },
+  {
+    name: "бандажи",
+    desctiptions: "описание",
+    img: "https://via.placeholder.com/150",
+  },
+  {
+    name: "корректоры",
+    desctiptions: "описание",
+    img: "https://via.placeholder.com/150",
+  },
+  {
+    name: "подушки",
+    desctiptions: "описание",
+    img: "https://www.belashoff.ru/image/cache/catalog/products/TC/tc-podushka-polu-puh-1000x1000.jpg",
+  },
+];
+
 export default mockCategories;

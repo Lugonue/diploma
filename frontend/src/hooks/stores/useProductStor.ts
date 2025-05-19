@@ -14,7 +14,7 @@ export type Product = {
   };
   color: string;
   description: string;
-  image_url: string;
+  imageUrl: string;
   number_of_purchases: number;
 };
 type Store = {

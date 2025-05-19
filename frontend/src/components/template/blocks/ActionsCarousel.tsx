@@ -10,11 +10,23 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
+import productApi from "@/api/endpoints/product"
+import { ProductCard } from "./Product/ProducCard"
+import { Product } from "hooks/stores/useProductStor"
 
 export function ActionsCarousel() {
+  const [products, setProducts] = React.useState<Product[]>([])
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   )
+
+  React.useEffect(() => {
+    const fetch = async () => {
+      const { data } = await productApi.getPopular()
+      setProducts(data)
+    }
+    fetch()
+  }, [])
 
   return (
     <Carousel
@@ -24,12 +36,12 @@ export function ActionsCarousel() {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
+        {products && products.map((p) => (
+          <CarouselItem key={p.id}>
             <div className="p-1">
               <Card>
-                <CardContent className="flex aspect-video items-center justify-center p-2">
-                  <span className="text-2xl font-semibold">{index + 1}</span>
+                <CardContent className="flex aspect-video items-center justify-center p-2 ">
+                  <ProductCard {...p} />
                 </CardContent>
               </Card>
             </div>
