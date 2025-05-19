@@ -29,7 +29,7 @@ export class User {
   @Column({ name: 'avatar_url', nullable: true })
   avatarUrl?: string;
 
-  @Column({ nullable: true })
+  @Column({ default: 'user' })
   role?: string;
 
   @OneToMany(() => Address, (address) => address.user, { cascade: true })
