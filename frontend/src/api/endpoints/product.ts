@@ -8,8 +8,8 @@ const productApi = {
   },
   getById: (id: number) => apiClient.get(`/products/${id}`),
   create: (productData: FormData) => apiClient.post("/products", productData),
-  update: (id: number, productData: Record<string, string>) =>
-    apiClient.put(`/products/${id}`, productData),
+  update: (id: number, productData: FormData) =>
+    apiClient.patch(`/products/${id}`, productData),
   delete: (id: number) => apiClient.delete(`/products/${id}`),
   getPopular: () => apiClient.get<Product[]>("/products/popular"),
 };

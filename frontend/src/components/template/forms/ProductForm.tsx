@@ -17,10 +17,12 @@ import { Category } from 'hooks/stores/useCatalogStore';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import { z } from "zod";
 
 type Props = {
-    closeDialog: () => void
+    closeDialog: () => void;
+    defaultValues?: Record<string, any>;
 }
 
 const ProductForm = (props: Props) => {
@@ -37,25 +39,34 @@ const ProductForm = (props: Props) => {
         description: z.string().optional(),
         image: z.instanceof(File).optional(),
     })
-
+    console.log(props.defaultValues)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            category_id: undefined, // или 0, если нужно
-            type_id: undefined,
+            name: props.defaultValues?.name,
+            category_id: props.defaultValues?.category, // или 0, если нужно
+            brand: props.defaultValues?.brand,
+            price: props.defaultValues?.price,
+            color: props.defaultValues?.color,
+            description: props.defaultValues?.description,
+            type_id: props.defaultValues?.type.id,
+
         },
     })
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
+        const editMode = !!props.defaultValues
         if (values) {
             const formData = new FormData()
             for (const key in values) {
                 // @ts-ignore
                 formData.append(key, values[key])
             }
-            productApi.create(formData)
+            const service = editMode ? productApi.update : productApi.create
+            service(props.defaultValues?.id || 0, formData)
             props.closeDialog()
         }
+        toast.success(editMode ? 'Товар успешно обновлен' : 'Товар успешно создан')
     }
 
     useEffect(() => {

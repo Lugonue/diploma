@@ -5,6 +5,7 @@ import { Product } from 'hooks/stores/useProductStor'
 
 type Props = {
     product: Product
+    openDialog?: () => void
 }
 
 const ProductListItem = (props: Props) => {
@@ -17,7 +18,7 @@ const ProductListItem = (props: Props) => {
             <span>{props.product.name}</span>
             <div className="flex gap-2">
                 <Button variant={'destructive'} onClick={() => { onRemove() }} >Удалить</Button>
-                <Button >Изменить</Button>
+                <Button onClick={() => { props.openDialog?.() }} >Изменить</Button>
             </div>
         </div>
     )
