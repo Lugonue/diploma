@@ -28,7 +28,6 @@ import { OrderModule } from './modules/order/order.module';
         synchronize: config.get('DB_SYNCHRONIZE'), // false в production!
         logging: ['error', 'warn'], // Логирование запросов (опционально)
         autoLoadEntities: true,
-        migrations: [`${__dirname}/migrations/*{.ts,.js}`],
       }),
       dataSourceFactory: async (options) => {
         return new DataSource(options!).initialize();
