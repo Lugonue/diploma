@@ -11,11 +11,15 @@ import { Phone } from './entities/phone.entity';
 export class UserService {
   constructor(private dataSource: DataSource) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto, file?: Express.Multer.File) {
+    if (file) {
+      createUserDto.avatarUrl = `/uploads/${file.filename}`;
+    }
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const user = this.dataSource.getRepository(User).create({
         ...createUserDto,
         password: hashedPassword,
+        role: 'user',
     });
     return await this.dataSource.getRepository(User).save(user);
   }
@@ -29,15 +33,23 @@ export class UserService {
     return await this.dataSource.getRepository(User).findOne({ where: { id }, relations: ['addresses', 'phones', 'orders'] });
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto, file?: Express.Multer.File) {
     const user = await this.dataSource.getRepository(User).findOne({ where: { id }, relations: ['addresses', 'phones']});
    
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
+    if ('role' in updateUserDto) {
+      delete updateUserDto.role;
+    }
+    
     const { password, addresses, phones, removeAddressIds, removePhoneIds, ...rest } = updateUserDto;
     Object.assign(user, rest);
+
+    if (file) {
+      user.avatarUrl = `/uploads/${file.filename}`;
+    }
 
     if (password) {
       user.password = await bcrypt.hash(password, 10);
@@ -55,7 +67,7 @@ export class UserService {
     }
 
     if (phones) {
-      const phoneIds = user.addresses.map(phone => phone.id) 
+      const phoneIds = user.phones.map(phone => phone.id) 
       await this.dataSource.getRepository(Phone).delete(phoneIds);
       
       const newPhones = phones.map((phoneData): Phone => {

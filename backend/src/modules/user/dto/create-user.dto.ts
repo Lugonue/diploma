@@ -26,10 +26,6 @@ export class CreateUserDto {
   @IsString()
   avatarUrl?: string;
 
-  @IsOptional()
-  @IsString()
-  role: string;
-
   @ArrayMinSize(1)
   addresses?: AddressDto[];
 

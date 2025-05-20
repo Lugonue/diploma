@@ -19,13 +19,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
-    "migration:run": "npm run typeorm migration:run -- -d dist/db/typeorm.config.js",
-    "migration:generate": "npm run typeorm migration:generate -- -d dist/db/typeorm.config.js ./db/migrations/diplom",
-    "migration:revert": "npm run typeorm migration:revert -- -d dist/db/typeorm.config.js",
-    "migration:show": "npm run typeorm migration:show -- -d dist/db/typeorm.config.js",
-    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config -n ./db/typeorm.seed.config.ts ",
-    "seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed -n ./db/typeorm.seed.config.ts"
+    "migration:run": "typeorm migration:run -d dist/db/typeorm.config.js",
+    "migration:generate": "typeorm migration:generate -d dist/db/typeorm.config.js ./src/db/migrations/diplom",
+    "migration:revert": "typeorm migration:revert -d dist/db/typeorm.config.js",
+    "migration:show": "typeorm migration:show -d dist/db/typeorm.config.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
