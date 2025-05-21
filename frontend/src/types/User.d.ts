@@ -20,5 +20,6 @@ export interface User {
 }
 
 export type Phone = {
+  id?: number;
   number: string;
 };

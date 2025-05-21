@@ -50,6 +50,10 @@ const Header = (props: Props) => {
     if (open) setOpen(false);
   });
 
+  if (!user.data && user.hasAuth) {
+    setUser()
+  }
+
   return (
     <header className="pt w-full">
       <div className='flex items-center justify-between bg-gradient-to-t from-gray-200 to-gray-300 py-5 px-10 rounded '>

@@ -3,11 +3,14 @@ import { ProductAPIResponse } from "@/types/Product";
 import { User } from "@/types/User";
 import { create } from "zustand";
 import { Product } from "./useProductStor";
+import { Order } from "@/api/endpoints/userApi";
 
 type Store = {
   user: User;
   userForm: Partial<User["data"]>;
   userCart: Product[];
+  userOrders: Order[];
+  setOrders: (items: Order[]) => void;
   setUser: (data?: User["data"]) => void;
   setUserForm: (data: Partial<User["data"]>) => void;
   resetUserForm: () => void;
@@ -25,6 +28,10 @@ const useUserStore = create<Store>((set) => ({
   },
   userForm: {},
   userCart: [],
+  userOrders: [],
+  setOrders: async (items) => {
+    set((state) => ({ ...state, userOrders: items }));
+  },
   setUser: async (userData) => {
     if (!userData) {
       const { data } = await auth.getMe();

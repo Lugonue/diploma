@@ -15,7 +15,7 @@ const UserInfo = (props: Props) => {
 
   const patchUser = async () => {
     const { data } = await userApi.patch(userForm)
-    setUser(data)
+    if (data) setUserForm(data)
     toast.success("Данные успешно обновлены");
     resetUserForm()
   }

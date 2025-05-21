@@ -24,6 +24,7 @@ export type RergisterBody = {
 };
 
 export type Address = {
+  id?: number;
   street: string;
   house?: string;
   building?: string;

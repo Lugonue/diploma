@@ -7,16 +7,13 @@ import { Address } from '@/api/endpoints/auth';
 
 type Props = {
     title?: string;
-    value?: string | unknown[]
+    value?: string | Phone[] | Address[] | number
     field?: string,
     index?: number,
     mode?: 'obj' | 'array'
     onChange?: (args: any) => void,
     arrayFieldName?: string // для отрисовки значения внутри массива, если есть
 }
-
-
-
 
 const Defenition = ({ title, value, field }: Props) => {
     const { userForm, user, setUserForm } = useUserStore();
@@ -36,7 +33,7 @@ const Defenition = ({ title, value, field }: Props) => {
     }
     const onRm = (index: number) => {
         if (!field || !userForm) return console.error('no filed or userFOrm')
-        const newData: any[] = [...userForm[field as keyof typeof userForm] || []]
+        const newData: any[] = [...userForm[field] || []]
         newData.splice(index, 1)
         setUserForm({ [field as string]: newData })
     }
