@@ -1,16 +1,14 @@
+import { cn } from '@/lib/utils'
 import { User } from '@/types/User'
 import { Button } from 'components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from 'components/ui/popover'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select'
+import useClickOutside from 'hooks/onClickOutside'
 import useUserStore from 'hooks/stores/useUserStore'
+import { MenuIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import Cart from './blocks/User/Cart'
-import { BarChart, ChartBarStackedIcon, MenuIcon } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import useClickOutside from 'hooks/onClickOutside'
-import SelectUI from 'components/ui/form/SelectUI'
 
 type Props = { id?: string, user?: User }
 
@@ -32,7 +30,7 @@ const CurrentLoginUser = () => {
   return (
     <div className="flex gap-2 items-center">
       <Button variant={'link'} className='text-grey-400' onClick={() => navigate('/profile')}>{getFIO(user.data)}</Button>
-      <Button variant={'outline'} onClick={() => logout()}>Выйти</Button>
+      <Button variant={'outline'} onClick={() => { logout(); navigate('/auth/login') }}>Выйти</Button>
     </div>
   )
 }
@@ -47,15 +45,10 @@ const Header = (props: Props) => {
 
   // Создаем ref для элемента, который нужно отслеживать
   const menuRef = useRef<HTMLDivElement>(null);
-
   // Используем хук для закрытия меню при клике вне его
   useClickOutside(menuRef, () => {
     if (open) setOpen(false);
   });
-
-  if (!user.data && user.hasAuth) {
-    setUser()
-  }
 
   return (
     <header className="pt w-full">
@@ -68,7 +61,7 @@ const Header = (props: Props) => {
         <MenuIcon className='md:hidden text-gray-700' onClick={() => setOpen(!open)} />
         <div ref={menuRef} className={cn(`flex-wrap gap-2 hidden md:flex ${open ? 'flex flex-col items-start absolute top-10 right-10 bg-white p-5 rounded' : ''}`)} >
 
-          <Button variant={'link'} onClick={() => navigate('/admin')}>В админ панель</Button>
+          {user.data?.role === 'admin' && <Button variant={'link'} onClick={() => navigate('/admin')}>В админ панель</Button>}
           {user.hasAuth && <Popover>
             <PopoverTrigger><Button >{t('cartButton')} </Button></PopoverTrigger>
             <PopoverContent className='w-auto'><Cart /></PopoverContent>

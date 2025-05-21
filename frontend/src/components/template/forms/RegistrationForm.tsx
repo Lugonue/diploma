@@ -136,7 +136,7 @@ const RegistrationForm = (props: Props) => {
                         </FormItem>
                     )}
                 />
-                <Button className='w-full' type="submit">Submit</Button>
+                <Button className='w-full' type="submit">{t('register.button')}</Button>
             </form>
         </Form>
     )

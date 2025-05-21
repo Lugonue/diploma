@@ -63,7 +63,8 @@
     "confirmPassword": {
       "label": "Подтвердите пароль",
       "placeholder": "Подтвердите пароль"
-    }
+    },
+    "button" : "Подтвердить"
   },
   "product": {
     "name": {
