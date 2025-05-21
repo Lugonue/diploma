@@ -7,9 +7,10 @@ import {
   Param,
   Delete,
   Req,
-  UseGuards
+  UseGuards,
+  UploadedFile,
 } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,6 +18,7 @@ import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { User } from './entities/user.entity';
+import { UploadImage } from 'src/common/decorators/upload-image.decorator';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard, RoleGuard)
@@ -26,8 +28,13 @@ export class UserController {
 
   @Post()
   @Roles('user', 'admin')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @UploadImage()
+  @ApiConsumes('multipart/form-data')
+  create(
+    @Body() createUserDto: CreateUserDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.userService.create(createUserDto, file);
   }
 
   @Get()
@@ -45,9 +52,15 @@ export class UserController {
 
   @Patch('profile')
   @Roles('user', 'admin')
-  async updateProfile(@Req() req: { user: User }, @Body() updateUserDto: UpdateUserDto) {
+  @UploadImage()
+  @ApiConsumes('multipart/form-data')
+  async updateProfile(
+    @Req() req: { user: User }, 
+    @Body() updateUserDto: UpdateUserDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
     const user = req.user;
-    return await this.userService.update(user.id, updateUserDto);
+    return await this.userService.update(user.id, updateUserDto, file);
   }
 
   @Get(':id')
@@ -58,8 +71,14 @@ export class UserController {
 
   @Patch(':id')
   @Roles('admin')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @UploadImage()
+  @ApiConsumes('multipart/form-data')
+  update(
+    @Param('id') id: string, 
+    @Body() updateUserDto: UpdateUserDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.userService.update(+id, updateUserDto, file);
   }
 
   @Delete(':id')
