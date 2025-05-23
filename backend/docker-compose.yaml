@@ -11,6 +11,8 @@ services:
       - db
     networks:
       - app-network
+    volumes:
+      - /var/www/diploma/uploads:/usr/src/app/uploads
     restart: unless-stopped
 
   db:
