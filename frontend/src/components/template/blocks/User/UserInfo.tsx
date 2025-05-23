@@ -1,5 +1,4 @@
 import userApi from '@/api/endpoints/userApi';
-import { Phone } from '@/types/User';
 import { Button } from 'components/ui/button';
 import Defenition from 'components/ui/misc/Defenition';
 import useUserStore from 'hooks/stores/useUserStore';
@@ -15,7 +14,10 @@ const UserInfo = (props: Props) => {
 
   const patchUser = async () => {
     const { data } = await userApi.patch(userForm)
-    if (data) setUserForm(data)
+    if (data) {
+      setUserForm(data)
+      setUser(data)
+    }
     toast.success("Данные успешно обновлены");
     resetUserForm()
   }
@@ -27,7 +29,6 @@ const UserInfo = (props: Props) => {
       <h3>Личные данные</h3>
       {Object.entries(user.data || {}).map(([k, v]) => {
         if (!v || !k || hiddenKeys.includes(k)) return null
-        // TODO доделать PATCH на адреса и телефоны
         return <Defenition title={t(`infoCard.${k}`)} value={v} field={k} key={k} />
       })}
 

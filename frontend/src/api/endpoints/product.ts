@@ -1,6 +1,6 @@
-import useProductStore, { Product } from "hooks/stores/useProductStor";
-import apiClient from "../apiClient";
 import { ProductAPIResponse } from "@/types/Product";
+import { Product } from "hooks/stores/useProductStor";
+import apiClient from "../apiClient";
 
 const productApi = {
   getAll: (params: ProductsRequestParams) => {

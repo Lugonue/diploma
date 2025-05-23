@@ -13,13 +13,17 @@ import useUserStore from 'hooks/stores/useUserStore';
 import { useForm } from 'react-hook-form';
 import { z } from "zod";
 import { ProductInCart } from '../blocks/Product/ProducCard';
+import userApi from "@/api/endpoints/userApi";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 type Props = {}
 
 
 
 const OrderForm = (props: Props) => {
-    const { user, userCart } = useUserStore();
+    const { user, userCart, updateCart } = useUserStore();
+    const nav = useNavigate()
 
     const formSchema = z.object({
         address_id: z.number(),
@@ -35,9 +39,12 @@ const OrderForm = (props: Props) => {
         },
     })
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values)
-        // await userApi.postOrder({ ...values, user_id: user.data?.id! })
-        
+        await userApi.postOrder({ ...values, user_id: user.data?.id! })
+        toast.success('Заказ успешно создан')
+        form.reset()
+        nav('/profile')
+        updateCart('removeMany', userCart.map(i => i.id))
+
     }
     return (
         <Form  {...form}>

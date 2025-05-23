@@ -2,7 +2,7 @@ import Layout from "components/layouts";
 import AdminLayout from "components/layouts/AdminLayout";
 import ContentLayout from "components/layouts/ContentLayout";
 import LoginLayout from "components/layouts/LoginLayout";
-import useUserStore from "hooks/stores/useUserStore";
+import useUserStore, { useCartWatcher } from "hooks/stores/useUserStore";
 import { useTranslation } from "react-i18next";
 import { Route, BrowserRouter as Router, Routes, UNSAFE_createBrowserHistory } from "react-router-dom";
 import AdminPage from "./pages/AdminPage";
@@ -18,7 +18,7 @@ import Order from "./pages/Order";
 
 const App = () => {
     const { ready } = useTranslation();
-
+    useCartWatcher();
 
     if (!ready) return <div>Loading...</div>;
     return (
@@ -28,8 +28,10 @@ const App = () => {
                     <Route path="" element={<AuthGuard component={<ContentLayout />} />} >
                         <Route path="" element={<AuthGuard component={<HomePage />} />} />
                         <Route path="catalog" element={<Catalog />} />
-                        <Route path="profile" element={<UserProfile />} >
-                            <Route path="order" element={<Order />} />
+                        <Route>
+                            <Route path="profile/order" element={<Order />} />
+                            <Route path="profile" element={<UserProfile />} />
+
                         </Route>
 
                     </Route>

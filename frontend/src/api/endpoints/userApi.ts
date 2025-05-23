@@ -1,8 +1,7 @@
-import { User, UserData } from "@/types/User";
-import apiClient from "../apiClient";
-import { get } from "http";
-import { Product } from "hooks/stores/useProductStor";
+import { Phone, User, UserData } from "@/types/User";
 import { OrderStatus } from "hooks/stores/useOrderStore";
+import { Product } from "hooks/stores/useProductStor";
+import apiClient from "../apiClient";
 
 export default {
   patch: (body: Partial<User["data"]>) =>
@@ -10,6 +9,7 @@ export default {
   delUser: (id: number) => apiClient.delete("users/" + id),
   postOrder: (body: PostOrderType) => apiClient.post("orders", body),
   getOrders: () => apiClient.get<Order[]>("orders"),
+  getOrder: (id: number) => apiClient.get<Order>("orders/" + id),
 };
 
 export type PostOrderType = {
@@ -27,9 +27,11 @@ export type Order = {
   user: UserData;
   address_id: number;
   phone_id: number;
+  phone?: Phone;
+  
   items: {
     id: number;
-    order: string;
+    quantity: number;
     product: Product;
   }[];
   createdAt: string;

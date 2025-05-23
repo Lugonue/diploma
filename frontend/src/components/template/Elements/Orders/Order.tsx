@@ -1,11 +1,10 @@
+import userApi, { Order } from '@/api/endpoints/userApi'
 import { cn } from '@/lib/utils'
 import { Button } from 'components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from 'components/ui/popover'
 import { format } from 'date-fns'
-import { Order, OrderStatus } from 'hooks/stores/useOrderStore'
-import React from 'react'
-
-type Props = {}
+import { OrderStatus } from 'hooks/stores/useOrderStore'
+import { useEffect, useState } from 'react'
 
 export const getStatusClasses = (status: OrderStatus) => {
     switch (status) {
@@ -43,9 +42,35 @@ const OrderItem = (props: Order) => {
 
 
 const OrderExtended = (props: Order) => {
+    const [order, setOrder] = useState(props)
+    useEffect(() => {
+        const fetch = async () => {
+            const { data } = await userApi.getOrder(props.id)
+            setOrder(data)
+        }
+        fetch()
+    }, [])
     return (
-        <div className='w-[30rem]'>
-
+        <div className='w-[30rem] flex flex-col gap-5'>
+            <p className='font-bold'>{`Заказ от ${format(new Date(props.createdAt), 'dd.MM.yyyy')}`}</p>
+            <div className="flex gap-5">
+                <p className='font-bold'>Статус:</p>
+                <p>{order.status}</p>
+            </div>
+            <div className="flex gap-5">
+                <p className='font-bold'>Адрес доставки:</p>
+                <p>{order.address_id}</p>
+            </div>
+            <div className="flex gap-5">
+                <p className='font-bold'>Телефон:</p>
+                <p>{order.phone?.number}</p>
+            </div>
+            <div className="grid">
+                <p className='font-bold'>Список заказанных товаров:</p>
+                <ul className='list-disc'>
+                    {order.items.map((p) => <li className='ml-5 text-sm' key={p.id}>{`${p.product.name} - ${p.quantity}шт`}</li>)}
+                </ul>
+            </div>
         </div>
     )
 }

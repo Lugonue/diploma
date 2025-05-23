@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import { Address } from '@/api/endpoints/auth';
+import { Phone, User, UserData } from '@/types/User';
+import useUserStore from 'hooks/stores/useUserStore';
+import { useEffect, useState } from 'react';
 import { Button } from '../button';
 import { Input } from '../input';
-import useUserStore from 'hooks/stores/useUserStore';
-import { Phone, User } from '@/types/User';
-import { Address } from '@/api/endpoints/auth';
 
 type Props = {
     title?: string;
@@ -13,6 +13,7 @@ type Props = {
     mode?: 'obj' | 'array'
     onChange?: (args: any) => void,
     arrayFieldName?: string // для отрисовки значения внутри массива, если есть
+    // hideAllInputs: () => void
 }
 
 const Defenition = ({ title, value, field }: Props) => {
@@ -32,10 +33,11 @@ const Defenition = ({ title, value, field }: Props) => {
         setUserForm({ addresses: newAd })
     }
     const onRm = (index: number) => {
-        if (!field || !userForm) return console.error('no filed or userFOrm')
-        const newData: any[] = [...userForm[field] || []]
+        if (!field || !userForm || !['addresses', 'phones'].includes(field)) return console.error('no filed or userFOrm')
+        const items = userForm[field as keyof UserData]
+        const newData = [...(Array.isArray(items) ? items : [])]
         newData.splice(index, 1)
-        setUserForm({ [field as string]: newData })
+        setUserForm({ [field]: newData })
     }
 
 
@@ -92,6 +94,10 @@ const Defenition = ({ title, value, field }: Props) => {
         }
         return Array.isArray(value) ? value.join(', ') : value
     }
+
+    useEffect(() => {
+        setInput(false)
+    }, [user])
     return (
         <div className="flex gap-4  min-h-[60px] bg-secondary/50 rounded-2xl p-2 pt-1">
             <dl className='flex flex-col w-5/6'>

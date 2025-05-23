@@ -16,7 +16,7 @@ const UserOrders = (props: Props) => {
     if (!userOrders.length) {
       fetch()
     }
-  })
+  }, [])
   return (
     <div className='min-w-xs'>
       <h3 className='mb-2'>Мои заказы</h3>

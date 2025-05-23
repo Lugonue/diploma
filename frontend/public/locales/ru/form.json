@@ -95,7 +95,7 @@
       "label": "Описание",
       "placeholder": "Введите описание"
     },
-    "image_url": {
+    "image": {
       "label": "Изображение",
       "placeholder": "Изображение"
     }

@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader } from 'components/ui/card'
 import { Separator } from 'components/ui/separator'
 import useBCStore from 'hooks/stores/useBCstore'
 import { useEffect } from 'react'
-import { Outlet } from 'react-router'
 
 type Props = {}
 
@@ -30,10 +29,6 @@ const UserProfile = (props: Props) => {
                     </div>
                 </CardContent>
             </Card>
-
-            <Outlet />
-           
-
         </div>
     )
 }
