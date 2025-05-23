@@ -5,6 +5,8 @@ import { Product } from 'hooks/stores/useProductStor'
 import { ImgCarousel } from '../ActionsCarousel'
 import useUserStore from 'hooks/stores/useUserStore'
 import { toast } from 'sonner'
+import { Checkbox } from 'components/ui/checkbox'
+import { cn } from '@/lib/utils'
 
 
 
@@ -48,20 +50,35 @@ const ProductExtended = ({ imageUrl, name, description, ...props }: Product) => 
     )
 }
 
-export const ProductInCart = ({ name, price, imageUrl, id }: Product) => {
+type ProductInCartProps = Product &
+{
+    orderType?: boolean, inOrder?: any, onPick?: (id: number) => void, onRemove?: (id: number) => void, onQuantityChange?: (id: number, quantity: number) => void
+}
+export const ProductInCart = ({ name, price, imageUrl, id, orderType, inOrder, onPick, onRemove }: ProductInCartProps) => {
     const { updateCart, userCart } = useUserStore();
 
     return (
-        <div className="flex justify-between w-[12rem] gap-2">
-            <div className="grid">
+        <div className={cn(["flex justify-between w-[12rem] gap-2", orderType && 'w-full'])}>
+            <div className="grid relative">
                 <img src={imageUrl} alt="" width={50} />
+                {orderType &&
+                    <div className="absolute bottom-0 left-0">
+                        <Checkbox checked={inOrder} onCheckedChange={(checked) => {
+                            if (checked) {
+                                onPick!(id)
+                            } else {
+                                onRemove!(id)
+                            }
+                        }} id="terms1" />
+                    </div>
+                }
             </div>
             <div className="grid">
-                <span className='text-sm line-clamp-1'>{name}</span>
+                <span className={cn(['text-sm line-clamp-1', orderType && 'line-clamp-5'])}>{name}</span>
                 <span className='text-xs'>{price}</span>
             </div>
             <div className="grid" >
-                <Button variant={'ghost'} onClick={() => updateCart('removeOne', id)} >X</Button>
+                {orderType ? <div></div> : <Button variant={'ghost'} onClick={() => updateCart('removeOne', id)} >X</Button>}
             </div>
         </div>
     )

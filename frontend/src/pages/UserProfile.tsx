@@ -16,7 +16,7 @@ const UserProfile = (props: Props) => {
     }, [])
 
     return (
-        <div className="flex-1 grid place-content-center my-10">
+        <div className="flex-1 flex justify-center gap-10 my-10">
             <Card>
                 <CardHeader>
                     <h2>Мой профиль</h2>

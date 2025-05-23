@@ -25,7 +25,7 @@ export class UserService {
   }
 
   async findAll() {
-    return await this.dataSource.getRepository(User).find({ relations: ['addresses', 'phones'] }
+    return await this.dataSource.getRepository(User).find({ relations: ['addresses', 'phones', 'orders'] }
     );
   }
 
@@ -56,8 +56,10 @@ export class UserService {
     }
 
     if (addresses) {
-      const adressIds = user.addresses.map(address => address.id) 
-      await this.dataSource.getRepository(Address).delete(adressIds);
+      const adressIds = user.addresses.map(address => address.id)
+      if (adressIds.length > 0) {
+        await this.dataSource.getRepository(Address).delete(adressIds);
+      }
 
       const newAddresses = addresses.map((addressData): Address => {
         const address = new Address();
@@ -68,7 +70,9 @@ export class UserService {
 
     if (phones) {
       const phoneIds = user.phones.map(phone => phone.id) 
-      await this.dataSource.getRepository(Phone).delete(phoneIds);
+      if (phoneIds.length > 0) {
+        await this.dataSource.getRepository(Phone).delete(phoneIds);
+      }
       
       const newPhones = phones.map((phoneData): Phone => {
         const phone = new Phone;

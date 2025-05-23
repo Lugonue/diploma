@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Product } from "./useProductStor";
 import { Phone } from "@/types/User";
+import { Order } from "@/api/endpoints/userApi";
 
 export type OrderStatus =
   | "Новый"
@@ -9,20 +10,6 @@ export type OrderStatus =
   | "Завершен"
   | "Отправлен";
 
-export type Order = {
-  id: number;
-  user: string; // ???
-  address: string[];
-  phone: Phone[];
-  items: {
-    id: number;
-    order: string; // ???
-    product: Partial<Product>;
-    quantity: number;
-  }[];
-  status: OrderStatus;
-  createdAt: string;
-};
 type Store = {
   orders: Order[];
   setOrders: (items: Order[]) => void;

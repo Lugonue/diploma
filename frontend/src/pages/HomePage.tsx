@@ -8,13 +8,12 @@ import useBCStore from "hooks/stores/useBCstore";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-
 function HomePage() {
   const navigate = useNavigate();
   const { setBC } = useBCStore();
   useEffect(() => {
-    setBC([{ link: '/', name: 'Главная' }])
-  }, [])
+    setBC([{ link: "/", name: "Главная" }]);
+  }, []);
   return (
     <div id="home" className="grid flex-1 contentContainer gap-5">
       <div className="flex justify-between gap-5 items-center">
@@ -24,14 +23,12 @@ function HomePage() {
       <div className="flex flex-col gap-5 bg-secondary rounded">
         <div className="px-10">
           <AboutUsBlock />
-
         </div>
         <CatalogPreview />
       </div>
       <WhyUs />
       <div className="flex flex-col gap-5 bg-secondary rounded">
         <FAQ />
-
       </div>
     </div>
   );

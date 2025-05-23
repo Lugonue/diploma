@@ -31,7 +31,7 @@ const CatalogSectionContent = () => {
     return (
         <>
             <section className='flex flex-wrap gap-10 justify-center'>
-                {productList ? (productList?.length === 0 ? <Empty /> : productList?.map((p) => <ProductCard {...p} />)) : getSkeletons()}
+                {productList ? (productList?.length === 0 ? <Empty /> : productList?.map((p) => <ProductCard {...p} key={p.id} />)) : getSkeletons()}
                 <PaginationUI totalCount={pagination.lastPage || 1} currentPage={Number(pagination.page)} onPageChange={(page: number) => setRequestProductParams({ ...requestProductParams, page: page })} />
             </section>
         </>

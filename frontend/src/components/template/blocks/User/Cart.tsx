@@ -2,11 +2,13 @@ import { Button } from 'components/ui/button'
 import { Separator } from 'components/ui/separator'
 import { ProductInCart } from '../Product/ProducCard'
 import useUserStore from 'hooks/stores/useUserStore'
+import { useNavigate } from 'react-router'
 
 type Props = {}
 
 const Cart = (props: Props) => {
     const { updateCart, userCart } = useUserStore();
+    const nav = useNavigate();
 
     return (
         <div className='w-[25rem] flex flex-col gap-5'>
@@ -16,7 +18,7 @@ const Cart = (props: Props) => {
             </div>
             <Separator className='mx-auto border-amber-500' />
             <h4>Итого {userCart.reduce((acc, p) => acc + +p.price, 0)}</h4>
-            <Button>Перейти к оформлению</Button>
+            <Button onClick={() => nav('/profile/order')}>Перейти к оформлению</Button>
         </div>
     )
 }
