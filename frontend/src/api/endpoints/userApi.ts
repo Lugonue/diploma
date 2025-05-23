@@ -2,6 +2,7 @@ import { Phone, User, UserData } from "@/types/User";
 import { OrderStatus } from "hooks/stores/useOrderStore";
 import { Product } from "hooks/stores/useProductStor";
 import apiClient from "../apiClient";
+import { Address } from "@/api/endpoints/auth";
 
 export default {
   patch: (body: Partial<User["data"]>) =>
@@ -28,7 +29,7 @@ export type Order = {
   address_id: number;
   phone_id: number;
   phone?: Phone;
-  
+  address?: Address;
   items: {
     id: number;
     quantity: number;
