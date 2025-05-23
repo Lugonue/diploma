@@ -25,7 +25,7 @@ export class UserService {
   }
 
   async findAll() {
-    return await this.dataSource.getRepository(User).find({ relations: ['addresses', 'phones'] }
+    return await this.dataSource.getRepository(User).find({ relations: ['addresses', 'phones', 'orders'] }
     );
   }
 
