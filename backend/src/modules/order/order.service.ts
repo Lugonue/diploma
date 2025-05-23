@@ -39,11 +39,11 @@ export class OrderService {
   }
 
   async findAll() {
-    return await this.dataSource.getRepository(Order).find({ relations: ['items', 'items.product'] });
+    return await this.dataSource.getRepository(Order).find({ relations: ['user', 'phone', 'address', 'items', 'items.product'] });
   }
 
   async findOne(id: number) {
-    return await this.dataSource.getRepository(Order).findOne({ where: { id }, relations: ['phone', 'items', 'items.product']});
+    return await this.dataSource.getRepository(Order).findOne({ where: { id }, relations: ['user', 'phone', 'address', 'items', 'items.product'] });
   }
 
   async update(id: number, updateOrderDto: UpdateOrderDto) {

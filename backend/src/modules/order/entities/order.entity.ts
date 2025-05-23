@@ -21,11 +21,11 @@ export class Order {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @ManyToOne(() => Address, { nullable: false })
+  @ManyToOne(() => Address, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'address_id' })
   address: Address;
 
-  @ManyToOne(() => Phone, { nullable: false })
+  @ManyToOne(() => Phone, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'phone_id' })
   phone: Phone;
 
