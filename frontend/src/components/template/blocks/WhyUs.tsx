@@ -1,23 +1,22 @@
 import { Card, CardContent } from "components/ui/card";
-import React from "react";
 
 const WhyUs = () => {
   const items = [
     {
       title: "Качественные бренды",
-      img: "/img/landing-about-us.jpg",
+      img: "/img/f4f0c41dca99f4fad0ce4b19ccaa26b6.png",
     },
     {
       title: "Профессиональные советы",
-      img: "",
+      img: "/img/image.png",
     },
     {
       title: "Удобная доставка",
-      img: "",
+      img: "/img/image_copy.png",
     },
     {
       title: "Широкий ассортимент",
-      img: "",
+      img: "/img/image_copy_2.png",
     },
   ];
   return (
@@ -26,12 +25,12 @@ const WhyUs = () => {
       <div className="flex gap-4 justify-center">
         {items.map((item, index) => (
           <Card key={index}>
-            <CardContent className="flex flex-col items-center gap-2">
-              <img
-                src={"/img/landing-about-us.jpg"}
-                alt=""
-                className="w-15 rounded-full"
-              />
+            <CardContent className="flex flex-col items-center gap-2 justify-between w-[15rem] h-full">
+              {/* <img src={item.img} alt="" className="w-15 rounded-full" /> */}
+              <div
+                className="w-full aspect-video rounded-lg"
+                style={{ background: `center/cover url(${item.img})` }}
+              ></div>
               <div className="font-bold">{item.title}</div>
             </CardContent>
           </Card>
