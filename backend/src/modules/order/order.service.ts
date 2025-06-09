@@ -46,6 +46,10 @@ export class OrderService {
     return await this.dataSource.getRepository(Order).findOne({ where: { id }, relations: ['user', 'phone', 'address', 'items', 'items.product'] });
   }
 
+  async findOrdersUsers(id: number) {
+    return await this.dataSource.getRepository(Order).find({ where: { user: { id }}, relations: ['phone', 'address', 'items', 'items.product'] });
+  }
+
   async update(id: number, updateOrderDto: UpdateOrderDto) {
     const order = await this.dataSource.getRepository(Order).findOne({ where: { id }, relations: ['items', 'items.product']});
     

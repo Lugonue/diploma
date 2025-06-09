@@ -30,7 +30,7 @@ export class OrderController {
   @Roles('admin', 'user')
   getMyOrders(@Req() req: { user : User }) {
     const user = req.user;
-    return this.orderService.findOne(user.id);
+    return this.orderService.findOrdersUsers(user.id);
   }
 
   @Get(':id')
