@@ -1,6 +1,6 @@
 {
   "name": "online-store-of-orthopedic-products",
-  "version": "0.2",
+  "version": "0.9",
   "description": "Дипломный проект Хекслет колледж",
   "scripts": {
     "postinstall": "cd ./frontend && yarn && cd ../backend && yarn"
